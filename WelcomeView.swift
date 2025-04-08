@@ -129,6 +129,8 @@ struct PhotoUploadView: View {
                     }
                     
                     Button("SKIP") {
+                        // Mark as completed initialization before navigating
+                        UserDefaults.standard.set(true, forKey: "hasCompletedInitialSetup")
                         navigateToMainView = true
                     }
                     .foregroundColor(.white)
@@ -208,6 +210,8 @@ struct PhotoUploadView: View {
                 // Continue button - appears when photo is selected
                 if selectedImage != nil {
                     Button(action: {
+                        // Mark as completed initialization
+                        UserDefaults.standard.set(true, forKey: "hasCompletedInitialSetup")
                         // Try to save to CloudKit but don't block on failure
                         savePhotoToCloudKit()
                     }) {
@@ -232,6 +236,8 @@ struct PhotoUploadView: View {
                         .padding(.top, 5)
                         
                     Button(action: {
+                        // Mark as completed initialization
+                        UserDefaults.standard.set(true, forKey: "hasCompletedInitialSetup")
                         // Skip CloudKit and go directly to main view
                         navigateToMainView = true
                     }) {
@@ -313,10 +319,13 @@ struct PhotoUploadView: View {
             case .success(let image):
                 if let image = image {
                     self.selectedImage = image
+                    print("Successfully loaded initial photo")
+                } else {
+                    print("No initial photo found")
                 }
             case .failure(let error):
                 print("Error loading initial photo: \(error.localizedDescription)")
-                // No need to show an alert for this error
+                // Don't show an alert for this error
             }
         }
     }
