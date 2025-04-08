@@ -1,0 +1,2923 @@
+{
+    "Week 1 - Foundation Week": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 15,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "70s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 16,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 32,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 11 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 16,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 22,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "35s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 21,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 15,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "2.25 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 11 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 21,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 32,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "100s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 15,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "3.25 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 2 - Volume Boost": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 15,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 11,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "80s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 17,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 34,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 12 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 17,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 24,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "40s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 22,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 16,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "2.50 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 12 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 22,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 34,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "110s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 16,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "3.50 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 3 - Tempo & Time Under Tension": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 16,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 11,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "90s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 18,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 36,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 13 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 18,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 26,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "45s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 23,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 16,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "2.75 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 13 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 23,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 36,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "120s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 16,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "3.75 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 4 - Burnout & Supersets": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 16,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "100s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 19,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 38,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 14 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 19,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 28,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "50s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 24,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 17,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "3.00 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 14 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 24,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 38,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "130s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 17,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "4.00 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 5 - Test Week + Power Push": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 16,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "110s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 20,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 40,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 15 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 20,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 30,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "55s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 25,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 17,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "3.25 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 15 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 25,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 40,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "140s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 17,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "4.25 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 6 - High-Rep Hell Week": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 17,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 13,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "120s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 21,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 42,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 16 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 21,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 32,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "60s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 26,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 18,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "3.50 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 16 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 26,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 42,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "150s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 18,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "4.50 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 7 - Explosive Athleticism": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 17,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 13,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "130s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 22,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 44,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 17 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 22,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 34,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "65s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 27,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 18,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "3.75 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 17 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 27,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 44,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "160s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 18,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "4.75 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 8 - Strength Peak + Supershred": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 17,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 14,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "140s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 23,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 46,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 18 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 23,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 36,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "70s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 28,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 19,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "4.00 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 18 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 28,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 46,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "170s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 19,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "5.00 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 9 - Definition Dominance": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 18,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 14,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "150s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 24,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 48,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 19 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 24,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 38,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "75s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 29,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 19,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "4.25 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 19 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 29,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 48,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "180s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 19,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "5.25 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    },
+    "Week 10 - Pool-Ready Finisher": {
+        "Monday": {
+            "Focus": "Push (Chest/Shoulders/Triceps) + Core",
+            "Exercises": [
+                {
+                    "name": "Flat Dumbbell Press",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25 lb each hand",
+                    "description": "Lie flat on a bench holding dumbbells at chest level. Press them upward until arms are fully extended, then lower back down slowly. This targets the chest, front deltoids, and triceps."
+                },
+                {
+                    "name": "Incline Dumbbell Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Lie on an incline bench with dumbbells above your chest. Press upward, focusing on squeezing the upper chest. Lower slowly to shoulder level."
+                },
+                {
+                    "name": "Overhead Shoulder Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20 lb each hand",
+                    "description": "Stand or sit with dumbbells at shoulder height. Press them overhead until your arms are extended, then lower under control. Targets all heads of the deltoids and triceps."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "sets": 3,
+                    "reps": 18,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Dips",
+                    "sets": 3,
+                    "reps": 15,
+                    "weight": "Bodyweight",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Dumbbell Skullcrushers",
+                    "sets": 3,
+                    "reps": 12,
+                    "weight": "10-15 lb",
+                    "description": "Lie flat with dumbbells extended above your head. Bend at the elbows to lower the weights near your forehead, then extend arms to starting position. Focuses on triceps."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Plank",
+                    "duration": "160s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Leg Raises",
+                    "reps": 25,
+                    "description": "Lie on your back with legs extended. Lift legs to vertical and lower slowly without touching the ground. Strengthens lower abs."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 50,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                }
+            ],
+            "Description": "This workout targets your pushing muscles: chest, shoulders, and triceps. It builds upper body size and strength while finishing with focused core work."
+        },
+        "Tuesday": {
+            "Focus": "Pull (Back/Biceps) + HIIT Run",
+            "Exercises": [
+                {
+                    "name": "Bent-over Dumbbell Rows",
+                    "sets": 4,
+                    "reps": 12,
+                    "weight": "20-30 lb each hand",
+                    "description": "With a flat back and slight knee bend, hinge at hips and row dumbbells to your ribs. Squeeze shoulder blades together. Strengthens lats and rhomboids."
+                },
+                {
+                    "name": "Single-arm Dumbbell Row",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "25-30 lb",
+                    "description": "Place one knee and hand on a bench, other foot on the ground. Row dumbbell toward your waist, keeping elbow close. Focus on lats and rear delts."
+                },
+                {
+                    "name": "Reverse Flys",
+                    "sets": 4,
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "With a flat back, lift dumbbells out to the sides in an arc. Pause at the top and lower slowly. Targets rear delts and upper back."
+                },
+                {
+                    "name": "Dumbbell Bicep Curls",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Stand tall holding dumbbells. Curl weights to your shoulders, keeping elbows close to your sides. Lower under control. Isolates biceps."
+                },
+                {
+                    "name": "Hammer Curls",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb each hand",
+                    "description": "Like bicep curls but with palms facing in. Targets biceps and forearms with a more neutral grip."
+                }
+            ],
+            "Cardio": "Outdoor HIIT Run: Sprint 30s / Walk 30s x 20 rounds",
+            "Description": "A workout focused on pulling muscles: back and biceps. Includes a fat-burning HIIT run to increase endurance and shred fat."
+        },
+        "Wednesday": {
+            "Focus": "Legs (Quads/Glutes/Hamstrings) + Core",
+            "Exercises": [
+                {
+                    "name": "Goblet Squats",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "35-40 lb",
+                    "description": "Hold a dumbbell at your chest and squat down with your chest up and knees out. Push through heels to return up. Works quads, glutes, and core."
+                },
+                {
+                    "name": "Walking Lunges",
+                    "sets": 4,
+                    "reps": 20,
+                    "weight": "15-25 lb each hand",
+                    "description": "Step forward into a lunge with both knees at 90 degrees. Push off the front leg and bring the back foot forward. Builds balance and lower body strength."
+                },
+                {
+                    "name": "Romanian Deadlifts",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "20-30 lb each hand",
+                    "description": "Hold dumbbells in front of thighs. Hinge at hips, keeping your back flat, lowering the weights down your legs. Stretch and contract hamstrings and glutes."
+                },
+                {
+                    "name": "Bulgarian Split Squats",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "Bodyweight or 10-15 lb each hand",
+                    "description": "Stand in front of a bench and place one foot behind you. Lower into a lunge with your front knee over your ankle. Strengthens quads, glutes, and balance."
+                },
+                {
+                    "name": "Calf Raises",
+                    "sets": 4,
+                    "reps": 25,
+                    "weight": "Optional dumbbells",
+                    "description": "Stand tall and lift your heels as high as possible, then lower slowly. Can be done on a step for deeper range. Works calf muscles."
+                }
+            ],
+            "Core": [
+                {
+                    "name": "Cable Crunch or Weighted Sit-Up",
+                    "reps": 25,
+                    "description": "Use a rope cable or hold a weight on your chest. Crunch down from the waist, keeping tension in the abs."
+                },
+                {
+                    "name": "Plank Shoulder Taps",
+                    "reps": 40,
+                    "description": "In a high plank, tap each shoulder with the opposite hand, maintaining a stable torso. Builds anti-rotational core strength."
+                },
+                {
+                    "name": "Side Plank",
+                    "duration": "80s each side",
+                    "description": "Lie on one side and lift your body using your forearm. Keep body in a straight line. Great for obliques and core stability."
+                }
+            ],
+            "Description": "Leg day to develop powerful and sculpted lower body muscles, with added core work to improve stability and posture."
+        },
+        "Thursday": {
+            "Focus": "Upper Body Circuit + Moderate Run",
+            "Circuit": [
+                {
+                    "name": "Push-Ups",
+                    "reps": 30,
+                    "description": "Lower your chest to the floor with elbows tucked at 45 degrees, then press back up. Works chest, shoulders, triceps, and core."
+                },
+                {
+                    "name": "Dumbbell Rows",
+                    "reps": 12,
+                    "weight": "20-25 lb each hand",
+                    "description": "In a bent-over position, row dumbbells to your ribs with elbows close to your body. Focuses on mid-back muscles."
+                },
+                {
+                    "name": "Arnold Press",
+                    "reps": 12,
+                    "weight": "15-20 lb",
+                    "description": "Start with palms facing you at shoulder level. Rotate palms outward as you press up. Engages all heads of the delts."
+                },
+                {
+                    "name": "Lateral Raises",
+                    "reps": 20,
+                    "weight": "10-12 lb",
+                    "description": "Hold dumbbells by your sides and raise them to shoulder height with a slight bend in your elbows. Pause, then lower slowly. Works the side delts for broader shoulders."
+                },
+                {
+                    "name": "Triceps Kickbacks",
+                    "reps": 15,
+                    "weight": "10-15 lb",
+                    "description": "Bend at the waist with elbows pinned back, then extend your arms fully. Focus on squeezing triceps at the top."
+                },
+                {
+                    "name": "EZ Bar or Dumbbell Curl Dropset",
+                    "reps": "3 sets descending",
+                    "description": "Start with heavier curls, then drop weight and continue until failure. Maximizes biceps fatigue and growth."
+                }
+            ],
+            "Run": "4.50 miles steady pace",
+            "Description": "A high-volume circuit targeting all upper body muscles, followed by a moderate-paced run to build stamina and burn calories."
+        },
+        "Friday": {
+            "Focus": "Full Body Strength + Sprint Intervals",
+            "Exercises": [
+                {
+                    "name": "Deadlifts",
+                    "sets": 4,
+                    "reps": 8,
+                    "weight": "25-35 lb each hand",
+                    "description": "With dumbbells in hand and feet shoulder-width, hinge at hips and lift while keeping your back neutral. Targets hamstrings, glutes, and back."
+                },
+                {
+                    "name": "Squat Press",
+                    "sets": 4,
+                    "reps": 10,
+                    "weight": "30-35 lb total",
+                    "description": "Hold dumbbells at shoulders, squat down, and press overhead as you stand. Combines leg and shoulder strength."
+                },
+                {
+                    "name": "Clean & Press",
+                    "sets": 3,
+                    "reps": 10,
+                    "weight": "15-20 lb dumbbells",
+                    "description": "Explosive movement lifting weights from floor to shoulders (clean) then pressing overhead. Full-body power move."
+                },
+                {
+                    "name": "Kettlebell/Dumbbell Swings",
+                    "sets": 3,
+                    "reps": 25,
+                    "weight": "20-25 lb",
+                    "description": "A functional strength or cardio movement used to enhance muscle development or endurance."
+                },
+                {
+                    "name": "Box Jumps or Step-Ups",
+                    "sets": 3,
+                    "reps": 12,
+                    "description": "Jump or step onto a box with control, landing softly. Develops explosive power and leg strength."
+                },
+                {
+                    "name": "Farmer\u2019s Carries",
+                    "sets": 3,
+                    "duration": "45 sec",
+                    "weight": "20-25 lb dumbbells",
+                    "description": "Hold heavy dumbbells at your sides and walk for time or distance. Improves grip, core stability, and conditioning."
+                }
+            ],
+            "Sprints": "Sprint 40s / Walk 30s x 20 rounds",
+            "Description": "A full-body strength session using compound lifts followed by high-intensity sprint intervals for conditioning and fat loss."
+        },
+        "Saturday": {
+            "Focus": "Core Focus + Long Run",
+            "Core": [
+                {
+                    "name": "V-Ups",
+                    "reps": 30,
+                    "description": "Lie flat and lift your arms and legs simultaneously to meet above your core. Excellent for full-ab engagement."
+                },
+                {
+                    "name": "Russian Twists",
+                    "reps": 50,
+                    "description": "Sit with knees bent and feet lifted. Twist your torso side to side while holding a weight, touching the ground on each side. Works obliques and core."
+                },
+                {
+                    "name": "Plank",
+                    "duration": "190s",
+                    "description": "Hold your body in a straight line from head to heels, supported by forearms and toes. Engage your core and glutes. Builds core endurance and stability."
+                },
+                {
+                    "name": "Cable or Dumbbell Side Bends",
+                    "reps": 20,
+                    "description": "Hold a weight in one hand and bend sideways at the waist. Return to standing. Strengthens the obliques."
+                }
+            ],
+            "Run": "5.50 miles",
+            "Description": "A deep core workout to carve definition paired with a long steady-state run to enhance endurance and promote fat burn."
+        },
+        "Sunday": {
+            "Focus": "Active Recovery",
+            "Options": [
+                "30\u201345 min walk",
+                "Gentle yoga/stretching session",
+                "Foam rolling and light mobility work"
+            ],
+            "Description": "Low-intensity activity like walking, stretching, or yoga to promote muscle recovery, mobility, and blood flow without taxing your system."
+        }
+    }
+}
+
