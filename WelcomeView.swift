@@ -85,12 +85,18 @@ struct WelcomeView: View {
     }
 }
 
-// Designed PhotoUploadView - replaces the previous placeholder
+// Updated PhotoUploadView with CloudKit integration
 struct PhotoUploadView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedImage: UIImage?
     @State private var isImagePickerPresented = false
     @State private var navigateToMainView = false
+    @State private var isSaving = false
+    @State private var showingAlert = false
+    @State private var alertMessage = ""
+    
+    // Create a CloudKit manager instance
+    @StateObject private var cloudKitManager = CloudKitManager()
     
     var body: some View {
         ZStack {
@@ -118,7 +124,7 @@ struct PhotoUploadView: View {
                     Spacer()
                     
                     // Skip button
-                    NavigationLink(destination: Text("Main View Placeholder").navigationBarHidden(true), isActive: $navigateToMainView) {
+                    NavigationLink(destination: HomePage(), isActive: $navigateToMainView) {
                         EmptyView()
                     }
                     
@@ -129,27 +135,27 @@ struct PhotoUploadView: View {
                     .padding()
                 }
                 
-                // Fire icon MOVED to top (after navigation)
+                // Fire icon at top
                 Image(systemName: "flame.fill")
                     .font(.system(size: 60))
                     .foregroundColor(.red)
                     .padding(.top, -5)
                 
-                // Upload heading MOVED to top (after fire icon)
+                // Upload heading
                 Text("UPLOAD INITIAL PHOTO")
                     .font(.title2)
                     .fontWeight(.bold)
                     .foregroundColor(.white)
                     .padding(.bottom, 10)
                 
-                // Photo upload box - INCREASED height
+                // Photo upload box
                 Button(action: {
                     isImagePickerPresented = true
                 }) {
                     ZStack {
                         RoundedRectangle(cornerRadius: 12)
                             .fill(Color.black.opacity(0.3))
-                            .frame(height: 350) // Increased from 200 to 350
+                            .frame(height: 350)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(Color.red.opacity(0.7), lineWidth: 2)
@@ -159,12 +165,12 @@ struct PhotoUploadView: View {
                             Image(uiImage: image)
                                 .resizable()
                                 .scaledToFill()
-                                .frame(height: 350) // Increased from 200 to 350
+                                .frame(height: 350)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                         } else {
                             VStack {
                                 Image(systemName: "camera.fill")
-                                    .font(.system(size: 50)) // Slightly larger icon
+                                    .font(.system(size: 50))
                                     .foregroundColor(.white)
                                     .padding(.bottom, 15)
                                 
@@ -173,8 +179,27 @@ struct PhotoUploadView: View {
                                     .foregroundColor(.white)
                             }
                         }
+                        
+                        // Show loading overlay when saving
+                        if isSaving {
+                            RoundedRectangle(cornerRadius: 12)
+                                .fill(Color.black.opacity(0.7))
+                                .frame(height: 350)
+                            
+                            VStack {
+                                ProgressView()
+                                    .scaleEffect(1.5)
+                                    .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    .padding(.bottom, 20)
+                                
+                                Text("Saving photo...")
+                                    .font(.headline)
+                                    .foregroundColor(.white)
+                            }
+                        }
                     }
                 }
+                .disabled(isSaving)
                 .padding(.horizontal, 30)
                 .sheet(isPresented: $isImagePickerPresented) {
                     ImagePicker(selectedImage: $selectedImage)
@@ -182,26 +207,118 @@ struct PhotoUploadView: View {
                 
                 // Continue button - appears when photo is selected
                 if selectedImage != nil {
-                    Button("CONTINUE") {
-                        // Here you would save the image to CloudKit
-                        // For now, just navigate to next screen
-                        navigateToMainView = true
+                    Button(action: {
+                        // Try to save to CloudKit but don't block on failure
+                        savePhotoToCloudKit()
+                    }) {
+                        Text("CONTINUE")
+                            .padding(.vertical, 15)
+                            .padding(.horizontal, 30)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.red)
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .cornerRadius(15)
                     }
-                    .padding(.vertical, 15)
-                    .padding(.horizontal, 30)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.red)
-                    .foregroundColor(.white)
-                    .font(.headline)
-                    .cornerRadius(15)
+                    .disabled(isSaving)
                     .padding(.horizontal, 30)
                     .padding(.top, 20)
+                    
+                    // Add skip CloudKit option during development
+                    #if DEBUG
+                    Text("(CloudKit may not work in simulator)")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                        .padding(.top, 5)
+                        
+                    Button(action: {
+                        // Skip CloudKit and go directly to main view
+                        navigateToMainView = true
+                    }) {
+                        Text("Skip CloudKit")
+                            .font(.caption)
+                            .foregroundColor(.gray)
+                            .padding(.top, 5)
+                    }
+                    #endif
                 }
                 
                 Spacer()
             }
         }
         .navigationBarHidden(true)
+        // Show an alert if there's an error
+        .alert(isPresented: $showingAlert) {
+            Alert(
+                title: Text("Error"),
+                message: Text(alertMessage),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+        // Subscribe to CloudKit loading status
+        .onChange(of: cloudKitManager.isLoading) { isLoading in
+            isSaving = isLoading
+        }
+        // Remove the problematic onChange for error
+        // Add onAppear modifier to set up error handler
+        .onAppear {
+            loadInitialPhoto()
+            
+            // Set up error handler
+            cloudKitManager.errorHandler = { error in
+                self.alertMessage = error.localizedDescription
+                self.showingAlert = true
+            }
+        }
+    }
+    
+    // Function to save the selected photo to CloudKit
+    private func savePhotoToCloudKit() {
+        guard let image = selectedImage else { return }
+        
+        isSaving = true
+        
+        // Try to save to CloudKit, but always allow continuing
+        cloudKitManager.savePhoto(image: image, isInitial: true) { result in
+            DispatchQueue.main.async {
+                isSaving = false
+                
+                switch result {
+                case .success(_):
+                    print("Successfully saved photo to CloudKit")
+                    // Navigate to main screen on success
+                    navigateToMainView = true
+                    
+                case .failure(let error):
+                    // Show error alert but still allow continuing
+                    alertMessage = "Failed to save photo to CloudKit. Continuing in local mode: \(error.localizedDescription)"
+                    showingAlert = true
+                    
+                    // Allow continuing despite CloudKit failure
+                    // Implement local storage here in a real app
+                    
+                    // For now, just navigate
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                        self.navigateToMainView = true
+                    }
+                }
+            }
+        }
+    }
+    
+    // Function to check for existing initial photo
+    private func loadInitialPhoto() {
+        cloudKitManager.fetchInitialPhoto { result in
+            switch result {
+            case .success(let image):
+                if let image = image {
+                    self.selectedImage = image
+                }
+            case .failure(let error):
+                print("Error loading initial photo: \(error.localizedDescription)")
+                // No need to show an alert for this error
+            }
+        }
     }
 }
 
