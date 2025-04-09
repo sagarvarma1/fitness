@@ -6,6 +6,7 @@ struct HomePage: View {
     @State private var navigateToWorkout = false
     @State private var showingError = false
     @State private var refreshID = UUID() // Add refresh ID to force view refresh
+    @State private var showingWorkoutHistory = false // State for workout history sheet
     
     var body: some View {
             ZStack {
@@ -18,10 +19,30 @@ struct HomePage: View {
                 .ignoresSafeArea()
                 
                 VStack(spacing: 25) {
-                // Top logo only - removed navigation area with reset button
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 40))
-                        .foregroundColor(.red)
+                // Top navigation area with menu button and logo
+                    HStack {
+                        Button(action: {
+                            showingWorkoutHistory = true
+                        }) {
+                            Image(systemName: "line.horizontal.3")
+                                .font(.system(size: 24))
+                                .foregroundColor(.white)
+                        }
+                        .padding(.leading, 20)
+                        
+                        Spacer()
+                        
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        
+                        Spacer()
+                        
+                        // Empty space for symmetry
+                        Color.clear
+                            .frame(width: 24, height: 24)
+                            .padding(.trailing, 20)
+                    }
                     .padding(.top, 10)
                     
                     if let week = viewModel.currentWeek, let day = viewModel.currentDay {
@@ -145,26 +166,30 @@ struct HomePage: View {
                     viewModel.loadWorkoutData()
                 }
                 
-                // Setup notification observer
-                setupRefreshObserver()
+                // Setup notification observers
+                setupNotificationObservers()
+                
+                // Force refresh
+                self.refreshID = UUID()
             }
             .onDisappear {
                 // Remove notification observer
                 NotificationCenter.default.removeObserver(self)
             }
-            .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("RefreshHomeView"))) { _ in
-                print("Received RefreshHomeView notification")
-                // Force view refresh
-                self.refreshID = UUID()
-                
-                // Reload data
+            .sheet(isPresented: $showingWorkoutHistory, onDismiss: {
+                // Reload saved state when returning from history view
                 viewModel.reloadSavedState()
-                viewModel.loadWorkoutData()
+                
+                // Force the view to refresh
+                self.refreshID = UUID()
+            }) {
+                WorkoutHistoryView(viewModel: viewModel)
             }
         }
     
-    // Setup notification observer - keeping for backward compatibility
-    private func setupRefreshObserver() {
+    // Setup notification observers
+    private func setupNotificationObservers() {
+        // Refresh observer
         NotificationCenter.default.addObserver(
             forName: NSNotification.Name("RefreshHomeView"),
             object: nil,
@@ -180,6 +205,225 @@ struct HomePage: View {
             // Force view refresh
             self.refreshID = UUID()
         }
+        
+        // Start workout observer
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("StartCurrentWorkout"),
+            object: nil,
+            queue: .main
+        ) { _ in
+            print("Observer caught StartCurrentWorkout notification")
+            // Trigger workout navigation
+            self.navigateToWorkout = true
+        }
+    }
+}
+
+// Workout History View
+struct WorkoutHistoryView: View {
+    @ObservedObject var viewModel: WorkoutViewModel
+    @Environment(\.presentationMode) var presentationMode
+    @State private var selectedWorkout: WorkoutReference? = nil
+    @State private var showingWorkoutDetail = false
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                // Use the same background as the main app
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.black, Color(red: 0.1, green: 0.1, blue: 0.2)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                if viewModel.workoutProgram == nil {
+                    // Show loading indicator if program isn't loaded yet
+                    VStack {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(1.5)
+                        
+                        Text("Loading workouts...")
+                            .foregroundColor(.white)
+                            .padding(.top, 20)
+                    }
+                } else {
+                    // All workouts list
+                    ScrollView {
+                        LazyVStack(spacing: 0) { // Reduced spacing between all items
+                            // Sort weeks by index/number rather than name to ensure correct order
+                            let sortedWeekIndices = (0..<viewModel.workoutProgram!.weeks.count).sorted { 
+                                // Extract week number from week name and sort numerically
+                                let week1 = viewModel.workoutProgram!.weeks[$0]
+                                let week2 = viewModel.workoutProgram!.weeks[$1]
+                                
+                                // Extract week numbers (assuming format "Week X - Description")
+                                let week1Num = Int(week1.name.replacingOccurrences(of: "Week ", with: "").components(separatedBy: " ").first ?? "0") ?? 0
+                                let week2Num = Int(week2.name.replacingOccurrences(of: "Week ", with: "").components(separatedBy: " ").first ?? "0") ?? 0
+                                
+                                return week1Num < week2Num
+                            }
+                            
+                            // Group workouts by week using sorted indices
+                            ForEach(sortedWeekIndices, id: \.self) { weekIndex in
+                                let week = viewModel.workoutProgram!.weeks[weekIndex]
+                                
+                                // Week header
+                                HStack {
+                                    Text(week.name)
+                                        .font(.title3)
+                                        .fontWeight(.bold)
+                                        .foregroundColor(.white)
+                                        .padding(.leading, 5)
+                                    
+                                    Spacer()
+                                }
+                                .padding(.horizontal)
+                                .padding(.top, weekIndex > 0 ? 5 : 5) // Reduced top padding
+                                
+                                // Days in this week
+                                ForEach(0..<week.days.count, id: \.self) { dayIndex in
+                                    let day = week.days[dayIndex]
+                                    
+                                    // Check if this workout has been completed
+                                    let completedWorkout = viewModel.findCompletedWorkout(weekName: week.name, dayName: day.name)
+                                    let isCurrentWorkout = weekIndex == viewModel.currentWeekIndex && dayIndex == viewModel.currentDayIndex
+                                    let isFutureWorkout = (weekIndex > viewModel.currentWeekIndex) || 
+                                                         (weekIndex == viewModel.currentWeekIndex && dayIndex > viewModel.currentDayIndex)
+                                    
+                                    NavigationLink(
+                                        destination: WorkoutDetailView(
+                                            viewModel: viewModel,
+                                            workoutReference: WorkoutReference(
+                                                weekIndex: weekIndex,
+                                                dayIndex: dayIndex,
+                                                completedWorkout: completedWorkout
+                                            )
+                                        )
+                                    ) {
+                                        HStack {
+                                            VStack(alignment: .leading, spacing: 3) {
+                                                Text(day.name)
+                                                    .font(.headline)
+                                                    .foregroundColor(.white)
+                                                
+                                                Text(day.focus)
+                                                    .font(.subheadline)
+                                                    .foregroundColor(.gray)
+                                            }
+                                            
+                                            Spacer()
+                                            
+                                            // Status indicator
+                                            Group {
+                                                if let completed = completedWorkout {
+                                                    // Completed workout
+                                                    HStack(spacing: 5) {
+                                                        Text("\(completed.completedExercises)/\(completed.totalExercises)")
+                                                            .font(.caption)
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Image(systemName: "checkmark.circle.fill")
+                                                            .foregroundColor(.green)
+                                                    }
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)
+                                                    .background(Color.green.opacity(0.2))
+                                                    .cornerRadius(10)
+                                                } else if isCurrentWorkout {
+                                                    // Current workout
+                                                    HStack(spacing: 5) {
+                                                        Text("CURRENT")
+                                                            .font(.caption)
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Image(systemName: "flame.fill")
+                                                            .foregroundColor(.red)
+                                                    }
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)
+                                                    .background(Color.red.opacity(0.2))
+                                                    .cornerRadius(10)
+                                                } else if isFutureWorkout {
+                                                    // Future workout
+                                                    HStack(spacing: 5) {
+                                                        Text("UPCOMING")
+                                                            .font(.caption)
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Image(systemName: "clock")
+                                                            .foregroundColor(.gray)
+                                                    }
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)
+                                                    .background(Color.gray.opacity(0.2))
+                                                    .cornerRadius(10)
+                                                } else {
+                                                    // Missed workout
+                                                    HStack(spacing: 5) {
+                                                        Text("MISSED")
+                                                            .font(.caption)
+                                                            .foregroundColor(.white)
+                                                        
+                                                        Image(systemName: "xmark.circle")
+                                                            .foregroundColor(.orange)
+                                                    }
+                                                    .padding(.horizontal, 10)
+                                                    .padding(.vertical, 5)
+                                                    .background(Color.orange.opacity(0.2))
+                                                    .cornerRadius(10)
+                                                }
+                                            }
+                                            
+                                            Image(systemName: "chevron.right")
+                                                .foregroundColor(.gray)
+                                                .font(.caption)
+                                        }
+                                        .padding(.vertical, 6) // Reduced vertical padding
+                                        .padding(.horizontal)
+                                        .background(Color.black.opacity(0.3))
+                                        .cornerRadius(10)
+                                        .padding(.horizontal)
+                                        .padding(.vertical, 2) // Reduced spacing between day items
+                                    }
+                                }
+                            }
+                            .padding(.bottom, 10) // Reduced bottom padding
+                        }
+                        .padding(.top, 5) // Reduced top padding
+                    }
+                }
+            }
+            .navigationTitle("All Workouts")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16))
+                            .foregroundColor(.white)
+                            .padding(8)
+                            .background(Color.black.opacity(0.4))
+                            .clipShape(Circle())
+                    }
+                }
+            }
+        }
+        .navigationViewStyle(StackNavigationViewStyle())
+    }
+}
+
+// Reference to a workout (either completed or from the program)
+struct WorkoutReference {
+    let weekIndex: Int
+    let dayIndex: Int
+    let completedWorkout: CompletedWorkout?
+    
+    var isCompleted: Bool {
+        return completedWorkout != nil
     }
 }
 
@@ -305,13 +549,21 @@ struct WorkoutProgressView: View {
                     // Complete workout button - reduced bottom padding
                     Button("COMPLETE WORKOUT") {
                         stopTimer()
-                        viewModel.advanceToNextDay()
+                        
+                        // Save the workout with duration
+                        viewModel.advanceToNextDay(duration: elapsedSeconds)
                         
                         // Use a flag for navigation instead of direct presentation
                         isPresented = false
                         
                         // Add slight delay before showing completion view
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                            // Post notification to refresh the home view
+                            NotificationCenter.default.post(
+                                name: NSNotification.Name("RefreshHomeView"),
+                                object: nil
+                            )
+                            
                             // Use NotificationCenter to present the completion view from the root level
                             NotificationCenter.default.post(
                                 name: NSNotification.Name("ShowWorkoutCompletedView"),
@@ -408,6 +660,12 @@ struct WorkoutProgressView: View {
                     .padding(.bottom, 50)
                 }
                 .transition(.move(edge: .bottom))
+            }
+        }
+        .onAppear {
+            // Auto-start timer if this is a fresh workout session
+            if !workoutWasStarted {
+                startTimer()
             }
         }
         .onDisappear {
@@ -578,5 +836,349 @@ struct StatCard: View {
         .padding(.vertical, 10)
         .background(Color.black.opacity(0.4))
         .cornerRadius(10)
+    }
+}
+
+// Workout Detail View - for viewing any workout (completed or future)
+struct WorkoutDetailView: View {
+    @ObservedObject var viewModel: WorkoutViewModel
+    let workoutReference: WorkoutReference
+    @Environment(\.presentationMode) var presentationMode
+    @State private var showingExerciseDetail = false
+    @State private var selectedExercise: Exercise? = nil
+    
+    // Get the week and day from the reference
+    private var week: Week? {
+        guard let program = viewModel.workoutProgram,
+              workoutReference.weekIndex < program.weeks.count else {
+            return nil
+        }
+        return program.weeks[workoutReference.weekIndex]
+    }
+    
+    private var day: Day? {
+        guard let week = week,
+              workoutReference.dayIndex < week.days.count else {
+            return nil
+        }
+        return week.days[workoutReference.dayIndex]
+    }
+    
+    // Computed properties for workout status
+    private var isCompleted: Bool {
+        return workoutReference.isCompleted
+    }
+    
+    private var isCurrent: Bool {
+        return workoutReference.weekIndex == viewModel.currentWeekIndex &&
+               workoutReference.dayIndex == viewModel.currentDayIndex
+    }
+    
+    private var isFuture: Bool {
+        return (workoutReference.weekIndex > viewModel.currentWeekIndex) ||
+               (workoutReference.weekIndex == viewModel.currentWeekIndex && 
+                workoutReference.dayIndex > viewModel.currentDayIndex)
+    }
+    
+    var body: some View {
+        ZStack {
+            // Background
+            LinearGradient(
+                gradient: Gradient(colors: [Color.black, Color(red: 0.1, green: 0.1, blue: 0.2)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            // Main content
+            ScrollView {
+                VStack(spacing: 10) { // Reduced overall spacing
+                    if let week = week, let day = day {
+                        // Close button - added to the top of the view instead of navigation bar
+                        HStack {
+                            Spacer()
+                            Button(action: {
+                                self.presentationMode.wrappedValue.dismiss()
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .padding(12)
+                                    .background(Color.black.opacity(0.5))
+                                    .clipShape(Circle())
+                            }
+                            .padding(.trailing, 20)
+                        }
+                        .padding(.top, 10)
+                        
+                        // App logo/icon instead of status tags
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        
+                        // Timer section for completed workouts only
+                        if let completedWorkout = workoutReference.completedWorkout {
+                            VStack(spacing: 5) {
+                                Text("WORKOUT DURATION")
+                                    .font(.caption)
+                                    .fontWeight(.semibold)
+                                    .foregroundColor(.gray)
+                                
+                                // Display completion time if available, otherwise "Unknown"
+                                Text(completedWorkout.formattedDuration ?? "Unknown")
+                                    .font(.system(size: 36, weight: .bold, design: .monospaced))
+                                    .foregroundColor(.white)
+                            }
+                            .padding(.vertical, 10)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black.opacity(0.3))
+                            .cornerRadius(15)
+                            .padding(.horizontal)
+                        }
+                        
+                        // Focus section
+                        VStack(alignment: .leading, spacing: 5) {
+                            Text("FOCUS")
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .foregroundColor(.gray)
+                            
+                            Text(day.focus)
+                                .font(.headline)
+                                .foregroundColor(.white)
+                            
+                            Text(day.description)
+                                .font(.subheadline)
+                                .foregroundColor(.white.opacity(0.8))
+                                .padding(.top, 5)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding()
+                        .background(Color.black.opacity(0.3))
+                        .cornerRadius(15)
+                        .padding(.horizontal)
+                        
+                        // Exercises list
+                        Text("Exercises")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
+                        
+                        VStack(spacing: 6) { // Reduced spacing between exercise tiles
+                            if isCompleted, let completedWorkout = workoutReference.completedWorkout {
+                                // Show completed workout exercises but with disabled checkboxes
+                                ForEach(completedWorkout.exercises) { exercise in
+                                    WorkoutExerciseTile(
+                                        exercise: exercise,
+                                        onMore: {
+                                            selectedExercise = exercise
+                                            showingExerciseDetail = true
+                                        },
+                                        showCompletionColor: true
+                                    )
+                                    .padding(.horizontal)
+                                }
+                            } else {
+                                // Show exercises from program without checkboxes
+                                ForEach(day.exercises) { exercise in
+                                    WorkoutExerciseTile(
+                                        exercise: exercise,
+                                        onMore: {
+                                            selectedExercise = exercise
+                                            showingExerciseDetail = true
+                                        },
+                                        showCompletionColor: false
+                                    )
+                                    .padding(.horizontal)
+                                }
+                            }
+                        }
+                        
+                        // Add a start workout button ONLY for the current workout (not for completed)
+                        if isCurrent && !isCompleted {
+                            Button("START THIS WORKOUT") {
+                                // Dismiss this view and post notification to start the workout
+                                self.presentationMode.wrappedValue.dismiss()
+                                
+                                // Post a notification to start the workout
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                    NotificationCenter.default.post(
+                                        name: NSNotification.Name("StartCurrentWorkout"),
+                                        object: nil
+                                    )
+                                }
+                            }
+                            .padding(.vertical, 12)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .cornerRadius(15)
+                            .padding(.horizontal, 30)
+                            .padding(.bottom, 20)
+                            .padding(.top, 10)
+                        }
+                    } else {
+                        // Fallback view if data is missing
+                        Text("Workout details not available")
+                            .font(.headline)
+                            .foregroundColor(.white)
+                            .padding()
+                    }
+                }
+                .padding(.bottom, 20)
+            }
+            
+            // Custom modal overlay for exercise details
+            if showingExerciseDetail, let exercise = selectedExercise {
+                Color.black.opacity(0.7)
+                    .ignoresSafeArea()
+                    .onTapGesture {
+                        showingExerciseDetail = false
+                    }
+                
+                VStack {
+                    Spacer()
+                    
+                    // Exercise detail card
+                    VStack(spacing: 15) {
+                        // Exercise title
+                        Text(exercise.title)
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .padding(.top, 20)
+                        
+                        // Workout stats cards
+                        HStack(spacing: 12) {
+                            if let sets = exercise.sets {
+                                StatCard(label: "Sets", value: "\(sets)")
+                            }
+                            
+                            if let reps = exercise.reps {
+                                StatCard(label: "Reps", value: "\(reps)")
+                            }
+                            
+                            if let duration = exercise.duration {
+                                StatCard(label: "Duration", value: duration)
+                            }
+                        }
+                        .padding(.horizontal)
+                        
+                        // Description
+                        if let description = exercise.description {
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 10) {
+                                    Text("How to perform")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 2)
+                                    
+                                    Text(description)
+                                        .foregroundColor(.white.opacity(0.9))
+                                        .lineSpacing(5)
+                                        .font(.subheadline)
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding()
+                            }
+                            .frame(maxHeight: 200)
+                        }
+                        
+                        // Done button
+                        Button(action: {
+                            showingExerciseDetail = false
+                        }) {
+                            Text("Close")
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .background(Color.red)
+                                .foregroundColor(.white)
+                                .cornerRadius(12)
+                        }
+                        .padding(.horizontal)
+                        .padding(.bottom, 15)
+                    }
+                    .padding(.vertical)
+                    .background(Color(red: 0.1, green: 0.1, blue: 0.15))
+                    .cornerRadius(20)
+                    .padding(.horizontal, 20)
+                    .padding(.bottom, 50)
+                }
+                .transition(.move(edge: .bottom))
+            }
+        }
+        .navigationBarHidden(true) // Hide the navigation bar since we have our own X button
+    }
+}
+
+// Simplified exercise tile for workout detail view (no checkbox)
+struct WorkoutExerciseTile: View {
+    let exercise: Exercise
+    let onMore: () -> Void
+    let showCompletionColor: Bool // Whether to show completion state colors
+    
+    var body: some View {
+        VStack {
+            HStack(spacing: 12) {
+                // Exercise name and details
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(exercise.title)
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    
+                    // Exercise rep/set/duration info
+                    HStack {
+                        if let sets = exercise.sets {
+                            Text("\(sets) sets")
+                                .foregroundColor(.white.opacity(0.8))
+                                .font(.subheadline)
+                        }
+                        
+                        if let reps = exercise.reps {
+                            Text("• \(reps) reps")
+                                .foregroundColor(.white.opacity(0.8))
+                                .font(.subheadline)
+                        }
+                        
+                        if let duration = exercise.duration {
+                            Text("• \(duration)")
+                                .foregroundColor(.white.opacity(0.8))
+                                .font(.subheadline)
+                        }
+                    }
+                }
+                
+                Spacer()
+                
+                // Only the More button
+                Button(action: onMore) {
+                    Text("More")
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(Color.gray.opacity(0.3))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                }
+            }
+            .padding(14)
+            .background(
+                showCompletionColor ? 
+                    (exercise.isCompleted ? Color.green.opacity(0.3) : Color.red.opacity(0.3)) : 
+                    Color.black.opacity(0.3)
+            )
+            .cornerRadius(12)
+            .overlay(
+                RoundedRectangle(cornerRadius: 12)
+                    .stroke(
+                        showCompletionColor ? 
+                            (exercise.isCompleted ? Color.green : Color.red) : 
+                            Color.clear,
+                        lineWidth: 1.5
+                    )
+            )
+        }
     }
 } 

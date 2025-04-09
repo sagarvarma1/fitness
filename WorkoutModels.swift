@@ -90,6 +90,82 @@ struct Exercise: Codable, Identifiable {
     }
 }
 
+// Model for storing completed workout history
+struct CompletedWorkout: Codable, Identifiable {
+    var id = UUID()
+    let weekName: String
+    let dayName: String
+    let completionDate: Date
+    let exercises: [Exercise]
+    let duration: Int? // Duration in seconds, if recorded
+    
+    // Calculate statistics about the workout
+    var totalExercises: Int {
+        return exercises.count
+    }
+    
+    var completedExercises: Int {
+        return exercises.filter { $0.isCompleted }.count
+    }
+    
+    // Format date for display
+    var formattedDate: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .short
+        return formatter.string(from: completionDate)
+    }
+    
+    // Format duration for display
+    var formattedDuration: String? {
+        guard let duration = duration else { return nil }
+        
+        let hours = duration / 3600
+        let minutes = (duration % 3600) / 60
+        let seconds = duration % 60
+        
+        if hours > 0 {
+            return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+        } else {
+            return String(format: "%02d:%02d", minutes, seconds)
+        }
+    }
+    
+    // For Codable support with UUID
+    enum CodingKeys: String, CodingKey {
+        case id, weekName, dayName, completionDate, exercises, duration
+    }
+    
+    init(weekName: String, dayName: String, completionDate: Date, exercises: [Exercise], duration: Int? = nil) {
+        self.weekName = weekName
+        self.dayName = dayName
+        self.completionDate = completionDate
+        self.exercises = exercises
+        self.duration = duration
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        let idString = try container.decode(String.self, forKey: .id)
+        self.id = UUID(uuidString: idString) ?? UUID()
+        self.weekName = try container.decode(String.self, forKey: .weekName)
+        self.dayName = try container.decode(String.self, forKey: .dayName)
+        self.completionDate = try container.decode(Date.self, forKey: .completionDate)
+        self.exercises = try container.decode([Exercise].self, forKey: .exercises)
+        self.duration = try container.decodeIfPresent(Int.self, forKey: .duration)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(id.uuidString, forKey: .id)
+        try container.encode(weekName, forKey: .weekName)
+        try container.encode(dayName, forKey: .dayName)
+        try container.encode(completionDate, forKey: .completionDate)
+        try container.encode(exercises, forKey: .exercises)
+        try container.encodeIfPresent(duration, forKey: .duration)
+    }
+}
+
 // Extension to decode the workout program
 extension WorkoutProgram {
     static func loadFromJSON() -> WorkoutProgram? {
