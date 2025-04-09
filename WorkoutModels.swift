@@ -4,6 +4,11 @@ import Foundation
 struct WorkoutProgram: Codable {
     let weeks: [Week]
     
+    // Standard initializer
+    init(weeks: [Week]) {
+        self.weeks = weeks
+    }
+    
     // Custom decoder to handle the dictionary format in the JSON
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
@@ -49,10 +54,11 @@ struct Exercise: Codable, Identifiable {
     let reps: Int?
     let weight: String?
     let duration: String?
+    var isCompleted: Bool = false
     
     // Add flexible decoding for reps which might be Int or String
     enum CodingKeys: String, CodingKey {
-        case title, description, sets, reps, weight, duration
+        case title, description, sets, reps, weight, duration, isCompleted
     }
     
     init(from decoder: Decoder) throws {
@@ -70,15 +76,17 @@ struct Exercise: Codable, Identifiable {
         
         weight = try container.decodeIfPresent(String.self, forKey: .weight)
         duration = try container.decodeIfPresent(String.self, forKey: .duration)
+        isCompleted = try container.decodeIfPresent(Bool.self, forKey: .isCompleted) ?? false
     }
     
-    init(title: String, description: String?, sets: Int?, reps: Int?, weight: String? = nil, duration: String? = nil) {
+    init(title: String, description: String?, sets: Int?, reps: Int?, weight: String? = nil, duration: String? = nil, isCompleted: Bool = false) {
         self.title = title
         self.description = description
         self.sets = sets
         self.reps = reps
         self.weight = weight
         self.duration = duration
+        self.isCompleted = isCompleted
     }
 }
 

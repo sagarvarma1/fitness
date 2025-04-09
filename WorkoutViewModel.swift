@@ -54,6 +54,19 @@ class WorkoutViewModel: ObservableObject {
         print("Saved state: Week \(currentWeekIndex), Day \(currentDayIndex)")
     }
     
+    // Reload state from UserDefaults
+    func reloadSavedState() {
+        let defaults = UserDefaults.standard
+        if defaults.bool(forKey: "hasCompletedInitialSetup") {
+            self.currentWeekIndex = defaults.integer(forKey: "currentWeekIndex")
+            self.currentDayIndex = defaults.integer(forKey: "currentDayIndex")
+            print("Reloaded state: Week \(currentWeekIndex), Day \(currentDayIndex)")
+            
+            // Force refresh of the published properties
+            self.objectWillChange.send()
+        }
+    }
+    
     func loadWorkoutData() {
         self.loadingError = nil
         
@@ -129,5 +142,56 @@ class WorkoutViewModel: ObservableObject {
     func resetProgress() {
         currentWeekIndex = 0
         currentDayIndex = 0
+    }
+    
+    // Toggle exercise completion status
+    func toggleExerciseCompletion(exerciseIndex: Int) {
+        guard let day = currentDay, exerciseIndex < day.exercises.count else { return }
+        // We need to modify the exercise in the data model
+        // Since exercises are in a nested array, we need to create new versions with modifications
+        
+        // Create a copy of the current exercise with toggled completion status
+        let currentExercise = day.exercises[exerciseIndex]
+        let updatedExercise = Exercise(
+            title: currentExercise.title,
+            description: currentExercise.description,
+            sets: currentExercise.sets,
+            reps: currentExercise.reps,
+            weight: currentExercise.weight,
+            duration: currentExercise.duration,
+            isCompleted: !currentExercise.isCompleted
+        )
+        
+        // Create a new array of exercises with the updated exercise
+        var updatedExercises = day.exercises
+        updatedExercises[exerciseIndex] = updatedExercise
+        
+        // Create a new day with the updated exercises
+        let updatedDay = Day(
+            name: day.name,
+            focus: day.focus,
+            description: day.description,
+            exercises: updatedExercises
+        )
+        
+        // Create a new array of days with the updated day
+        var updatedDays = currentWeek!.days
+        updatedDays[currentDayIndex] = updatedDay
+        
+        // Create a new week with the updated days
+        let updatedWeek = Week(
+            name: currentWeek!.name,
+            days: updatedDays
+        )
+        
+        // Create a new array of weeks with the updated week
+        var updatedWeeks = workoutProgram!.weeks
+        updatedWeeks[currentWeekIndex] = updatedWeek
+        
+        // Create a new program with the updated weeks
+        workoutProgram = WorkoutProgram(weeks: updatedWeeks)
+        
+        // Update state
+        objectWillChange.send()
     }
 } 
