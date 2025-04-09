@@ -13,6 +13,7 @@ struct fitnessApp: App {
     @State private var hasCompletedOnboarding: Bool = false
     @State private var showWorkoutCompletedView: Bool = false
     @StateObject private var notificationCenter = NotificationHandler()
+    @StateObject private var workoutViewModel = WorkoutViewModel()
     
     var body: some Scene {
         WindowGroup {
@@ -21,6 +22,7 @@ struct fitnessApp: App {
                 Group {
                     if hasCompletedOnboarding {
                         HomePage()
+                            .environmentObject(workoutViewModel)
                     } else {
                         WelcomeView()
                     }
@@ -33,7 +35,7 @@ struct fitnessApp: App {
                 
                 // Conditionally show workout completed view as an overlay
                 if showWorkoutCompletedView {
-                    WorkoutCompletedView()
+                    WorkoutCompletedView(viewModel: workoutViewModel)
                         .transition(.move(edge: .bottom))
                         .zIndex(100) // Keep on top
                 }

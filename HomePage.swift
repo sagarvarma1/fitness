@@ -2,7 +2,7 @@ import SwiftUI
 import UIKit
 
 struct HomePage: View {
-    @StateObject private var viewModel = WorkoutViewModel()
+    @EnvironmentObject private var viewModel: WorkoutViewModel
     @State private var navigateToWorkout = false
     @State private var showingError = false
     @State private var refreshID = UUID() // Add refresh ID to force view refresh
@@ -74,7 +74,7 @@ struct HomePage: View {
                         .padding(.horizontal, 30)
                     .fullScreenCover(isPresented: $navigateToWorkout) {
                         // Custom workout view without navigation elements
-                        WorkoutProgressView(viewModel: viewModel, isPresented: $navigateToWorkout)
+                        WorkoutProgressView(isPresented: $navigateToWorkout)
                     }
                         
                         // Workout Details
@@ -186,7 +186,7 @@ struct HomePage: View {
                 // Force the view to refresh
                 self.refreshID = UUID()
             }) {
-                WorkoutHistoryView(viewModel: viewModel)
+                WorkoutHistoryView()
             }
         }
     
@@ -199,6 +199,9 @@ struct HomePage: View {
             queue: .main
         ) { _ in
             print("Observer caught RefreshHomeView notification")
+            // Reload completed workouts first
+            viewModel.loadCompletedWorkouts()
+            
             // Reload state from UserDefaults
             viewModel.reloadSavedState()
             
@@ -219,12 +222,27 @@ struct HomePage: View {
             // Trigger workout navigation
             self.navigateToWorkout = true
         }
+        
+        // Completed workout observer
+        NotificationCenter.default.addObserver(
+            forName: NSNotification.Name("HideWorkoutCompletedView"),
+            object: nil,
+            queue: .main
+        ) { _ in
+            print("Observer caught HideWorkoutCompletedView notification")
+            // Make sure to refresh completed workouts when returning from the completed view
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                viewModel.loadCompletedWorkouts()
+                viewModel.reloadSavedState()
+                self.refreshID = UUID()
+            }
+        }
     }
 }
 
 // Workout History View
 struct WorkoutHistoryView: View {
-    @ObservedObject var viewModel: WorkoutViewModel
+    @EnvironmentObject var viewModel: WorkoutViewModel
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedWorkout: WorkoutReference? = nil
     @State private var showingWorkoutDetail = false
@@ -297,7 +315,6 @@ struct WorkoutHistoryView: View {
                                     
                                     NavigationLink(
                                         destination: WorkoutDetailView(
-                                            viewModel: viewModel,
                                             workoutReference: WorkoutReference(
                                                 weekIndex: weekIndex,
                                                 dayIndex: dayIndex,
@@ -414,8 +431,26 @@ struct WorkoutHistoryView: View {
                     }
                 }
             }
+            // Apply black navigation bar appearance
+            .onAppear {
+                configureNavigationBarAppearance()
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
+    }
+    
+    // Configure the navigation bar appearance to match the app's dark theme
+    private func configureNavigationBarAppearance() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .black
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        UINavigationBar.appearance().standardAppearance = appearance
+        UINavigationBar.appearance().compactAppearance = appearance
+        UINavigationBar.appearance().scrollEdgeAppearance = appearance
+        UINavigationBar.appearance().tintColor = .white
     }
 }
 
@@ -432,7 +467,7 @@ struct WorkoutReference {
 
 // Custom workout progress view without any navigation elements
 struct WorkoutProgressView: View {
-    var viewModel: WorkoutViewModel
+    @EnvironmentObject var viewModel: WorkoutViewModel
     @Binding var isPresented: Bool
     
     // Timer state
@@ -918,7 +953,7 @@ struct StatCard: View {
 
 // Workout Detail View - for viewing any workout (completed or future)
 struct WorkoutDetailView: View {
-    @ObservedObject var viewModel: WorkoutViewModel
+    @EnvironmentObject var viewModel: WorkoutViewModel
     let workoutReference: WorkoutReference
     @Environment(\.presentationMode) var presentationMode
     @State private var showingExerciseDetail = false
@@ -979,81 +1014,12 @@ struct WorkoutDetailView: View {
             ScrollView {
                 VStack(spacing: 10) { // Reduced overall spacing
                     if let week = week, let day = day {
-                        // Close button - added to the top of the view instead of navigation bar
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                self.presentationMode.wrappedValue.dismiss()
-                            }) {
-                                Image(systemName: "xmark")
-                                    .font(.system(size: 20))
-                                    .foregroundColor(.white)
-                                    .padding(12)
-                                    .background(Color.black.opacity(0.5))
-                                    .clipShape(Circle())
-                            }
-                            .padding(.trailing, 20)
-                        }
-                        .padding(.top, 10)
-                        
                         // App logo/icon instead of status tags
                         Image(systemName: "flame.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.red)
                             .padding(.bottom, 5)
-                        
-                        // Photo section (only for completed workouts)
-                        if isCompleted, let completedWorkout = workoutReference.completedWorkout {
-                            if let photo = workoutPhoto {
-                                // Show the workout photo if available
-                                Image(uiImage: photo)
-                                    .resizable()
-                                    .scaledToFill()
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 200)
-                                    .clipped()
-                                    .cornerRadius(15)
-                                    .padding(.horizontal)
-                                    .onTapGesture {
-                                        self.showingFullScreenPhoto = true
-                                    }
-                            } else if isLoadingPhoto {
-                                // Show loading indicator while photo is loading
-                                VStack {
-                                    ProgressView()
-                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
-                                    Text("Loading photo...")
-                                        .foregroundColor(.white)
-                                        .font(.caption)
-                                        .padding(.top, 5)
-                                }
-                                .frame(maxWidth: .infinity)
-                                .frame(height: 120)
-                                .background(Color.black.opacity(0.3))
-                                .cornerRadius(15)
-                                .padding(.horizontal)
-                            } else {
-                                // Show upload button if no photo is available
-                                Button(action: {
-                                    self.showingPhotoOptions = true
-                                }) {
-                                    VStack(spacing: 10) {
-                                        Image(systemName: "photo.on.rectangle.angled")
-                                            .font(.system(size: 30))
-                                            .foregroundColor(.white)
-                                        
-                                        Text("Upload Photo")
-                                            .font(.headline)
-                                            .foregroundColor(.white)
-                                    }
-                                    .frame(maxWidth: .infinity)
-                                    .frame(height: 120)
-                                    .background(Color.black.opacity(0.3))
-                                    .cornerRadius(15)
-                                }
-                                .padding(.horizontal)
-                            }
-                        }
+                            .padding(.top, 50) // Added padding to account for fixed X button
                         
                         // Timer section for completed workouts only
                         if let completedWorkout = workoutReference.completedWorkout {
@@ -1073,6 +1039,54 @@ struct WorkoutDetailView: View {
                             .background(Color.black.opacity(0.3))
                             .cornerRadius(15)
                             .padding(.horizontal)
+                            
+                            // Photo section (only for completed workouts) - moved below workout duration
+                            if let photo = workoutPhoto {
+                                // Show the workout photo as a square
+                                Image(uiImage: photo)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 200, height: 200) // Square dimensions
+                                    .clipped()
+                                    .cornerRadius(15)
+                                    .padding(.top, 10)
+                                    .onTapGesture {
+                                        self.showingFullScreenPhoto = true
+                                    }
+                            } else if isLoadingPhoto {
+                                // Show loading indicator while photo is loading
+                                VStack {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    Text("Loading photo...")
+                                        .foregroundColor(.white)
+                                        .font(.caption)
+                                        .padding(.top, 5)
+                                }
+                                .frame(width: 200, height: 200) // Square dimensions
+                                .background(Color.black.opacity(0.3))
+                                .cornerRadius(15)
+                                .padding(.top, 10)
+                            } else {
+                                // Show upload button if no photo is available
+                                Button(action: {
+                                    self.showingPhotoOptions = true
+                                }) {
+                                    VStack(spacing: 10) {
+                                        Image(systemName: "photo.on.rectangle.angled")
+                                            .font(.system(size: 30))
+                                            .foregroundColor(.white)
+                                        
+                                        Text("Upload Photo")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(width: 200, height: 200) // Square dimensions
+                                    .background(Color.black.opacity(0.3))
+                                    .cornerRadius(15)
+                                }
+                                .padding(.top, 10)
+                            }
                         }
                         
                         // Focus section
@@ -1164,9 +1178,30 @@ struct WorkoutDetailView: View {
                             .font(.headline)
                             .foregroundColor(.white)
                             .padding()
+                            .padding(.top, 50) // Added padding to account for fixed X button
                     }
                 }
                 .padding(.bottom, 20)
+            }
+            
+            // Fixed close button overlay that stays visible when scrolling
+            VStack {
+                HStack {
+                    Spacer()
+                    Button(action: {
+                        self.presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 20))
+                            .foregroundColor(.white)
+                            .padding(12)
+                            .background(Color.black.opacity(0.6))
+                            .clipShape(Circle())
+                    }
+                    .padding(.trailing, 20)
+                    .padding(.top, 10)
+                }
+                Spacer()
             }
             
             // Custom modal overlay for exercise details

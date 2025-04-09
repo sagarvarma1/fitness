@@ -13,7 +13,11 @@ struct WorkoutCompletedView: View {
     
     // Create a CloudKit manager instance
     @StateObject private var cloudKitManager = CloudKitManager()
-    @StateObject private var viewModel = WorkoutViewModel()
+    @ObservedObject var viewModel: WorkoutViewModel
+    
+    init(viewModel: WorkoutViewModel) {
+        self.viewModel = viewModel
+    }
     
     var body: some View {
         ZStack {
@@ -185,28 +189,33 @@ struct WorkoutCompletedView: View {
     private func uploadPhoto(image: UIImage) {
         isSaving = true
         
-        cloudKitManager.savePhoto(image: image, isInitial: false, day: viewModel.currentDayIndex ?? 0) { result in
+        // First, we need to find the most recently completed workout
+        let completedWorkouts = viewModel.completedWorkouts.sorted { $0.completionDate > $1.completionDate }
+        
+        guard let lastWorkout = completedWorkouts.first else {
+            // Failed to find the completed workout, revert to old behavior
+            cloudKitManager.savePhoto(image: image, isInitial: false, day: viewModel.currentDayIndex ?? 0) { result in
+                DispatchQueue.main.async {
+                    self.isSaving = false
+                    self.dismissAndReturnToHome()
+                }
+            }
+            return
+        }
+        
+        // Use the WorkoutViewModel to save the photo and link it to the workout
+        viewModel.saveWorkoutPhoto(workoutID: lastWorkout.id, image: image) { photoID in
             DispatchQueue.main.async {
                 self.isSaving = false
                 
-                switch result {
-                case .success(_):
-                    print("Successfully saved photo to CloudKit")
-                    self.dismissAndReturnToHome()
-                    
-                case .failure(let error):
-                    // Show error alert but still allow continuing
-                    self.alertMessage = "Failed to save photo to CloudKit. You can continue without saving the photo."
-                    self.showingAlert = true
-                    
-                    // Log the detailed error for debugging
-                    print("CloudKit error: \(error.localizedDescription)")
-                    
-                    // Allow continuing despite CloudKit failure
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-                        self.dismissAndReturnToHome()
-                    }
+                if let _ = photoID {
+                    print("Successfully saved workout photo and connected to workout")
+                } else {
+                    print("Failed to save workout photo")
+                    // Still allow continuing even if saving failed
                 }
+                
+                self.dismissAndReturnToHome()
             }
         }
     }
@@ -325,6 +334,6 @@ struct Triangle: Shape {
 
 struct WorkoutCompletedView_Previews: PreviewProvider {
     static var previews: some View {
-        WorkoutCompletedView()
+        WorkoutCompletedView(viewModel: WorkoutViewModel())
     }
 } 
