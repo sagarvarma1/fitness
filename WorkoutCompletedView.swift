@@ -122,7 +122,7 @@ struct WorkoutCompletedView: View {
                 // Continue button
                 Button("CONTINUE") {
                     if let image = selectedImage {
-                        savePhotoToCloudKit()
+                        uploadPhoto(image: image)
                     } else {
                         // If no photo was taken, just navigate to main view
                         // Ensure we're going to day two
@@ -182,16 +182,9 @@ struct WorkoutCompletedView: View {
     }
     
     // Function to save the selected photo to CloudKit
-    private func savePhotoToCloudKit() {
-        guard let image = selectedImage else { return }
-        
+    private func uploadPhoto(image: UIImage) {
         isSaving = true
-        print("Saving photo to CloudKit, day: \(nextDay)")
         
-        // Set next day in UserDefaults
-        UserDefaults.standard.set(nextDay, forKey: "currentDayIndex")
-        
-        // Try to save to CloudKit, but always allow continuing
         cloudKitManager.savePhoto(image: image, isInitial: false, day: viewModel.currentDayIndex ?? 0) { result in
             DispatchQueue.main.async {
                 self.isSaving = false
@@ -203,8 +196,11 @@ struct WorkoutCompletedView: View {
                     
                 case .failure(let error):
                     // Show error alert but still allow continuing
-                    self.alertMessage = "Failed to save photo to CloudKit. Continuing: \(error.localizedDescription)"
+                    self.alertMessage = "Failed to save photo to CloudKit. You can continue without saving the photo."
                     self.showingAlert = true
+                    
+                    // Log the detailed error for debugging
+                    print("CloudKit error: \(error.localizedDescription)")
                     
                     // Allow continuing despite CloudKit failure
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {

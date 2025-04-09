@@ -438,6 +438,10 @@ struct WorkoutProgressView: View {
     @State private var timer: Timer? = nil
     @State private var workoutWasStarted = false // Track if workout was previously started
     
+    // Countdown state
+    @State private var isCountingDown = false
+    @State private var countdownValue = 3
+    
     // Exercise states
     @State private var showingExerciseDetail = false
     @State private var selectedExercise: Exercise? = nil
@@ -454,35 +458,51 @@ struct WorkoutProgressView: View {
             
             // Main content
             VStack(spacing: 15) {
-                // Close button
-                HStack {
-                    Button(action: {
-                        stopTimer() // Stop timer before dismissing
-                        isPresented = false
-                    }) {
-                        Image(systemName: "xmark")
-                            .font(.system(size: 16, weight: .bold))
-                            .foregroundColor(.white)
-                            .padding(8)
-                            .background(Color.black.opacity(0.4))
-                            .clipShape(Circle())
+                // Close button - only show if workout hasn't started yet
+                if !workoutWasStarted {
+                    HStack {
+                        Button(action: {
+                            stopTimer() // Stop timer before dismissing
+                            isPresented = false
+                        }) {
+                            Image(systemName: "xmark")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(.white)
+                                .padding(8)
+                                .background(Color.black.opacity(0.4))
+                                .clipShape(Circle())
+                        }
+                        
+                        Spacer()
+                        
+                        // Add fire logo
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        
+                        Spacer()
+                        
+                        // Empty view for symmetry
+                        Color.clear
+                            .frame(width: 32, height: 32)
                     }
-                    
-                    Spacer()
-                    
-                    // Add fire logo
-                    Image(systemName: "flame.fill")
-                        .font(.system(size: 40))
-                        .foregroundColor(.red)
-                    
-                    Spacer()
-                    
-                    // Empty view for symmetry
-                    Color.clear
-                        .frame(width: 32, height: 32)
+                    .padding(.horizontal)
+                    .padding(.top, 10)
+                } else {
+                    // Just show the flame when workout has started (no X button)
+                    HStack {
+                        Spacer()
+                        
+                        // Add fire logo
+                        Image(systemName: "flame.fill")
+                            .font(.system(size: 40))
+                            .foregroundColor(.red)
+                        
+                        Spacer()
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 10)
                 }
-                .padding(.horizontal)
-                .padding(.top, 10)
                 
                 if let week = viewModel.currentWeek, let day = viewModel.currentDay {
                     // Combined Week and Day on single line
@@ -501,7 +521,13 @@ struct WorkoutProgressView: View {
                             .padding(.vertical, 5) // Reduced vertical padding
                         
                         // Single toggle button for timer
-                        Button(action: isTimerRunning ? stopTimer : startTimer) {
+                        Button(action: {
+                            if isTimerRunning {
+                                stopTimer()
+                            } else {
+                                startCountdown()
+                            }
+                        }) {
                             HStack {
                                 Image(systemName: isTimerRunning ? "stop.fill" : "play.fill")
                                 Text(isTimerRunning ? "Stop Workout" : (workoutWasStarted ? "Continue Workout" : "Start Workout"))
@@ -514,6 +540,7 @@ struct WorkoutProgressView: View {
                             .cornerRadius(12)
                         }
                         .padding(.horizontal)
+                        .disabled(isCountingDown) // Disable button during countdown
                     }
                     .padding(.vertical, 10) // Reduced padding
                     .background(Color.black.opacity(0.3))
@@ -580,6 +607,20 @@ struct WorkoutProgressView: View {
                     .padding(.horizontal, 30)
                     .padding(.bottom, 20) // Reduced bottom padding
                 }
+            }
+            
+            // Countdown overlay
+            if isCountingDown {
+                // Semi-transparent overlay
+                Color.black.opacity(0.8)
+                    .ignoresSafeArea()
+                
+                // Countdown text
+                Text(countdownValue > 0 ? "\(countdownValue)" : "GO!")
+                    .font(.system(size: 150, weight: .bold))
+                    .foregroundColor(.red)
+                    .transition(.scale)
+                    .id("countdown-\(countdownValue)") // Force animation to refresh
             }
             
             // Custom modal overlay instead of sheet
@@ -663,10 +704,8 @@ struct WorkoutProgressView: View {
             }
         }
         .onAppear {
-            // Auto-start timer if this is a fresh workout session
-            if !workoutWasStarted {
-                startTimer()
-            }
+            // Don't auto-start timer anymore
+            // Timer will only start when user presses Start Workout button
         }
         .onDisappear {
             // Cleanup timer when view disappears
@@ -694,6 +733,41 @@ struct WorkoutProgressView: View {
         stopTimer()
         elapsedSeconds = 0
         workoutWasStarted = false // Reset the flag when timer is reset
+    }
+    
+    // New countdown function
+    private func startCountdown() {
+        isCountingDown = true
+        countdownValue = 3
+        
+        // Haptic feedback for the initial "3"
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.impactOccurred()
+        
+        // Delay before first countdown to ensure "3" is visible for a full second
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+            // First countdown: 3 -> 2
+            generator.impactOccurred()
+            self.countdownValue = 2
+            
+            // Second countdown: 2 -> 1
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                generator.impactOccurred()
+                self.countdownValue = 1
+                
+                // Third countdown: 1 -> GO!
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+                    generator.impactOccurred()
+                    self.countdownValue = 0 // GO!
+                    
+                    // After GO! show for 0.75 seconds, start the workout
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.75) {
+                        self.isCountingDown = false
+                        self.startTimer() // Start the actual workout timer
+                    }
+                }
+            }
+        }
     }
     
     private func formatTime(seconds: Int) -> String {

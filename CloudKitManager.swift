@@ -46,8 +46,9 @@ class CloudKitManager: ObservableObject {
             return
         }
         
-        // Create a record ID with a predictable name pattern
-        let recordName = isInitial ? "initial_photo" : "day_\(day)_photo"
+        // Create a record ID with a unique name
+        let timestamp = Int(Date().timeIntervalSince1970)
+        let recordName = isInitial ? "initial_photo_\(timestamp)" : "day_\(day)_photo_\(timestamp)"
         let recordID = CKRecord.ID(recordName: recordName)
         
         // Create a new record with the specific ID
@@ -59,6 +60,8 @@ class CloudKitManager: ObservableObject {
         // Set record values - simpler now, we mainly need the photo
         record["photo"] = imageAsset
         record["timestamp"] = Date()
+        record["day"] = day
+        record["isInitial"] = isInitial ? 1 : 0
         
         // Save the record to the database
         privateDB.save(record) { (savedRecord, error) in
@@ -88,24 +91,21 @@ class CloudKitManager: ObservableObject {
         }
     }
     
-    // Fetch the initial photo from CloudKit using direct record ID
+    // Fetch the initial photo from CloudKit using query instead of direct ID
     func fetchInitialPhoto(completion: @escaping (Result<UIImage?, Error>) -> Void) {
-        let recordID = CKRecord.ID(recordName: "initial_photo")
+        let predicate = NSPredicate(format: "isInitial == 1")
+        let query = CKQuery(recordType: RecordType.workoutPhoto.rawValue, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
         
-        privateDB.fetch(withRecordID: recordID) { [weak self] (record, error) in
+        privateDB.perform(query, inZoneWith: nil) { [weak self] (records, error) in
             DispatchQueue.main.async {
-                if let error = error as? CKError {
-                    if error.code == .unknownItem {
-                        // Record doesn't exist yet, not an error
-                        completion(.success(nil))
-                    } else {
-                        self?.error = error
-                        completion(.failure(error))
-                    }
+                if let error = error {
+                    self?.error = error
+                    completion(.failure(error))
                     return
                 }
                 
-                guard let record = record, let asset = record["photo"] as? CKAsset, let fileURL = asset.fileURL else {
+                guard let record = records?.first, let asset = record["photo"] as? CKAsset, let fileURL = asset.fileURL else {
                     completion(.success(nil))
                     return
                 }
@@ -124,24 +124,21 @@ class CloudKitManager: ObservableObject {
         }
     }
     
-    // Fetch photo for a specific day
+    // Fetch photo for a specific day using query instead of direct ID
     func fetchPhotoForDay(day: Int, completion: @escaping (Result<UIImage?, Error>) -> Void) {
-        let recordID = CKRecord.ID(recordName: "day_\(day)_photo")
+        let predicate = NSPredicate(format: "day == %d AND isInitial == 0", day)
+        let query = CKQuery(recordType: RecordType.workoutPhoto.rawValue, predicate: predicate)
+        query.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false)]
         
-        privateDB.fetch(withRecordID: recordID) { [weak self] (record, error) in
+        privateDB.perform(query, inZoneWith: nil) { [weak self] (records, error) in
             DispatchQueue.main.async {
-                if let error = error as? CKError {
-                    if error.code == .unknownItem {
-                        // Record doesn't exist yet, not an error
-                        completion(.success(nil))
-                    } else {
-                        self?.error = error
-                        completion(.failure(error))
-                    }
+                if let error = error {
+                    self?.error = error
+                    completion(.failure(error))
                     return
                 }
                 
-                guard let record = record, let asset = record["photo"] as? CKAsset, let fileURL = asset.fileURL else {
+                guard let record = records?.first, let asset = record["photo"] as? CKAsset, let fileURL = asset.fileURL else {
                     completion(.success(nil))
                     return
                 }
