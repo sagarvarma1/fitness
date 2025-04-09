@@ -1,5 +1,7 @@
 import Foundation
 import SwiftUI
+import CloudKit
+import UIKit
 
 class WorkoutViewModel: ObservableObject {
     @Published var workoutProgram: WorkoutProgram?
@@ -15,14 +17,17 @@ class WorkoutViewModel: ObservableObject {
     }
     @Published var loadingError: String? = nil
     @Published var completedWorkouts: [CompletedWorkout] = []
+    @Published var workoutPhotos: [String: UIImage] = [:] // Cache for workout photos
+    
+    private let container = CKContainer.default().privateCloudDatabase
     
     init() {
         // First, load the workout data
         loadWorkoutData()
-        // Then load the saved state or initialize to defaults
-        loadSavedState()
-        // Load completed workouts history
+        // Then load completed workouts history so we can determine the latest day
         loadCompletedWorkouts()
+        // Now load state with knowledge of workout history
+        loadSavedState()
     }
     
     // Load saved user progress
@@ -31,9 +36,8 @@ class WorkoutViewModel: ObservableObject {
         
         // Check if first launch (using a static key unrelated to index values)
         if defaults.bool(forKey: "hasCompletedInitialSetup") {
-            // Not first launch, load saved indices
-            self.currentWeekIndex = defaults.integer(forKey: "currentWeekIndex")
-            self.currentDayIndex = defaults.integer(forKey: "currentDayIndex")
+            // Not first launch, find the latest workout day
+            findAndSetLatestWorkoutDay()
             
             // Load exercise completion status
             if let workoutProgram = self.workoutProgram {
@@ -153,7 +157,7 @@ class WorkoutViewModel: ObservableObject {
     }
     
     // Load completed workouts from UserDefaults
-    private func loadCompletedWorkouts() {
+    func loadCompletedWorkouts() {
         let defaults = UserDefaults.standard
         
         if let savedData = defaults.data(forKey: "completedWorkoutsHistory") {
@@ -182,16 +186,12 @@ class WorkoutViewModel: ObservableObject {
         loadCompletedWorkouts()
         
         if defaults.bool(forKey: "hasCompletedInitialSetup") {
-            // Load the saved indices
-            self.currentWeekIndex = defaults.integer(forKey: "currentWeekIndex")
-            self.currentDayIndex = defaults.integer(forKey: "currentDayIndex")
+            // Instead of just loading saved indices, find and set the latest workout day
+            findAndSetLatestWorkoutDay()
             
             // Load exercise completion status if workout program is loaded
             if let workoutProgram = self.workoutProgram {
                 loadExerciseCompletionStatus(workoutProgram: workoutProgram)
-                
-                // Check if there's a mismatch between completed workouts and current day
-                updateCurrentDayBasedOnCompletedWorkouts(workoutProgram: workoutProgram)
             }
             
             print("Reloaded state: Week \(currentWeekIndex), Day \(currentDayIndex)")
@@ -199,6 +199,57 @@ class WorkoutViewModel: ObservableObject {
             // Force refresh of the published properties
             self.objectWillChange.send()
         }
+    }
+    
+    // Find and set the current day to the latest workout or the one after the latest completed workout
+    private func findAndSetLatestWorkoutDay() {
+        guard let program = self.workoutProgram, !program.weeks.isEmpty else {
+            return
+        }
+        
+        // Option 1: If there are completed workouts, use the most recent one to determine where we are
+        if !completedWorkouts.isEmpty {
+            // Sort by completion date (most recent first)
+            let sortedWorkouts = completedWorkouts.sorted { $0.completionDate > $1.completionDate }
+            
+            if let latestWorkout = sortedWorkouts.first {
+                // Find the week and day index for this workout
+                for (weekIndex, week) in program.weeks.enumerated() {
+                    if week.name == latestWorkout.weekName {
+                        self.currentWeekIndex = weekIndex
+                        
+                        for (dayIndex, day) in week.days.enumerated() {
+                            if day.name == latestWorkout.dayName {
+                                // Found the latest completed workout - now advance to the next day
+                                if dayIndex < week.days.count - 1 {
+                                    // Next day in same week
+                                    self.currentDayIndex = dayIndex + 1
+                                } else if weekIndex < program.weeks.count - 1 {
+                                    // First day of next week
+                                    self.currentWeekIndex = weekIndex + 1
+                                    self.currentDayIndex = 0
+                                } else {
+                                    // End of program, cycle back to first day
+                                    self.currentWeekIndex = 0
+                                    self.currentDayIndex = 0
+                                }
+                                
+                                print("Set day to next workout after latest completed: Week \(currentWeekIndex), Day \(currentDayIndex)")
+                                saveState()
+                                return
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        // Option 2: If we couldn't find a completed workout or set the next day,
+        // load the saved state as a fallback
+        let defaults = UserDefaults.standard
+        self.currentWeekIndex = defaults.integer(forKey: "currentWeekIndex")
+        self.currentDayIndex = defaults.integer(forKey: "currentDayIndex")
+        print("Using saved state: Week \(currentWeekIndex), Day \(currentDayIndex)")
     }
     
     // New method to ensure currentDay is updated based on completed workouts
@@ -402,6 +453,118 @@ class WorkoutViewModel: ObservableObject {
     func findCompletedWorkout(weekName: String, dayName: String) -> CompletedWorkout? {
         return completedWorkouts.first { 
             $0.weekName == weekName && $0.dayName == dayName 
+        }
+    }
+    
+    // Save photo for a workout
+    func saveWorkoutPhoto(workoutID: UUID, image: UIImage, completion: @escaping (String?) -> Void) {
+        // Convert the image to data
+        guard let imageData = image.jpegData(compressionQuality: 0.7) else {
+            completion(nil)
+            return
+        }
+        
+        // Create a unique record ID
+        let photoID = CKRecord.ID(recordName: "photo_\(workoutID.uuidString)")
+        let record = CKRecord(recordType: "WorkoutPhoto", recordID: photoID)
+        
+        // Set the image data
+        let asset = CKAsset(fileURL: saveImageTemporarily(data: imageData))
+        record["imageData"] = asset
+        record["workoutID"] = workoutID.uuidString
+        
+        // Save to CloudKit
+        container.save(record) { (record, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Error saving photo: \(error.localizedDescription)")
+                    completion(nil)
+                } else if let record = record {
+                    // Cache the image
+                    self.workoutPhotos[photoID.recordName] = image
+                    
+                    // Update the workout with the photo ID
+                    self.updateWorkoutWithPhotoID(workoutID: workoutID, photoID: photoID.recordName)
+                    
+                    completion(photoID.recordName)
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    // Get photo for a workout
+    func getWorkoutPhoto(photoID: String, completion: @escaping (UIImage?) -> Void) {
+        // Check cache first
+        if let cachedImage = workoutPhotos[photoID] {
+            completion(cachedImage)
+            return
+        }
+        
+        // Fetch from CloudKit
+        let recordID = CKRecord.ID(recordName: photoID)
+        container.fetch(withRecordID: recordID) { (record, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("Error fetching photo: \(error.localizedDescription)")
+                    completion(nil)
+                } else if let record = record, let asset = record["imageData"] as? CKAsset, let fileURL = asset.fileURL {
+                    do {
+                        let data = try Data(contentsOf: fileURL)
+                        if let image = UIImage(data: data) {
+                            // Cache the image
+                            self.workoutPhotos[photoID] = image
+                            completion(image)
+                        } else {
+                            completion(nil)
+                        }
+                    } catch {
+                        print("Error reading image data: \(error.localizedDescription)")
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                }
+            }
+        }
+    }
+    
+    // Update a workout with a photo ID
+    private func updateWorkoutWithPhotoID(workoutID: UUID, photoID: String) {
+        guard let index = completedWorkouts.firstIndex(where: { $0.id == workoutID }) else {
+            return
+        }
+        
+        // Create a new workout with the photo ID
+        let workout = completedWorkouts[index]
+        let updatedWorkout = CompletedWorkout(
+            weekName: workout.weekName,
+            dayName: workout.dayName,
+            completionDate: workout.completionDate,
+            exercises: workout.exercises,
+            duration: workout.duration,
+            photoID: photoID
+        )
+        
+        // Update the array
+        completedWorkouts[index] = updatedWorkout
+        
+        // Save to UserDefaults
+        saveCompletedWorkouts()
+    }
+    
+    // Helper method to temporarily save image data to a file
+    private func saveImageTemporarily(data: Data) -> URL {
+        let tempDir = FileManager.default.temporaryDirectory
+        let filename = "\(UUID().uuidString).jpg"
+        let fileURL = tempDir.appendingPathComponent(filename)
+        
+        do {
+            try data.write(to: fileURL)
+            return fileURL
+        } catch {
+            fatalError("Error saving image data: \(error.localizedDescription)")
         }
     }
 } 

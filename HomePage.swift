@@ -158,13 +158,16 @@ struct HomePage: View {
                 // Ensure we've completed initialization by setting the flag
                 UserDefaults.standard.set(true, forKey: "hasCompletedInitialSetup")
                 
-                // Reload state from UserDefaults
-                viewModel.reloadSavedState()
-                
-                // Load workout data when view appears
+                // Reload workout data if needed
                 if viewModel.workoutProgram == nil {
                     viewModel.loadWorkoutData()
                 }
+                
+                // Always reload completed workouts and find latest day
+                viewModel.loadCompletedWorkouts()
+                
+                // Reload state to get the current day
+                viewModel.reloadSavedState()
                 
                 // Setup notification observers
                 setupNotificationObservers()
@@ -921,6 +924,14 @@ struct WorkoutDetailView: View {
     @State private var showingExerciseDetail = false
     @State private var selectedExercise: Exercise? = nil
     
+    // Photo states
+    @State private var workoutPhoto: UIImage? = nil
+    @State private var isLoadingPhoto = false
+    @State private var showingPhotoOptions = false
+    @State private var showingImagePicker = false
+    @State private var showingFullScreenPhoto = false
+    @State private var sourceType: UIImagePickerController.SourceType? = nil
+    
     // Get the week and day from the reference
     private var week: Week? {
         guard let program = viewModel.workoutProgram,
@@ -989,6 +1000,60 @@ struct WorkoutDetailView: View {
                         Image(systemName: "flame.fill")
                             .font(.system(size: 40))
                             .foregroundColor(.red)
+                            .padding(.bottom, 5)
+                        
+                        // Photo section (only for completed workouts)
+                        if isCompleted, let completedWorkout = workoutReference.completedWorkout {
+                            if let photo = workoutPhoto {
+                                // Show the workout photo if available
+                                Image(uiImage: photo)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 200)
+                                    .clipped()
+                                    .cornerRadius(15)
+                                    .padding(.horizontal)
+                                    .onTapGesture {
+                                        self.showingFullScreenPhoto = true
+                                    }
+                            } else if isLoadingPhoto {
+                                // Show loading indicator while photo is loading
+                                VStack {
+                                    ProgressView()
+                                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                                    Text("Loading photo...")
+                                        .foregroundColor(.white)
+                                        .font(.caption)
+                                        .padding(.top, 5)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .frame(height: 120)
+                                .background(Color.black.opacity(0.3))
+                                .cornerRadius(15)
+                                .padding(.horizontal)
+                            } else {
+                                // Show upload button if no photo is available
+                                Button(action: {
+                                    self.showingPhotoOptions = true
+                                }) {
+                                    VStack(spacing: 10) {
+                                        Image(systemName: "photo.on.rectangle.angled")
+                                            .font(.system(size: 30))
+                                            .foregroundColor(.white)
+                                        
+                                        Text("Upload Photo")
+                                            .font(.headline)
+                                            .foregroundColor(.white)
+                                    }
+                                    .frame(maxWidth: .infinity)
+                                    .frame(height: 120)
+                                    .background(Color.black.opacity(0.3))
+                                    .cornerRadius(15)
+                                }
+                                .padding(.horizontal)
+                            }
+                        }
                         
                         // Timer section for completed workouts only
                         if let completedWorkout = workoutReference.completedWorkout {
@@ -1183,8 +1248,79 @@ struct WorkoutDetailView: View {
                 }
                 .transition(.move(edge: .bottom))
             }
+            
+            // Full screen photo overlay
+            if showingFullScreenPhoto, let photo = workoutPhoto {
+                ZStack {
+                    Color.black
+                        .ignoresSafeArea()
+                    
+                    Image(uiImage: photo)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
+                    // Close button in the top-right corner
+                    VStack {
+                        HStack {
+                            Spacer()
+                            
+                            Button(action: {
+                                self.showingFullScreenPhoto = false
+                            }) {
+                                Image(systemName: "xmark")
+                                    .font(.system(size: 20))
+                                    .foregroundColor(.white)
+                                    .padding(15)
+                                    .background(Color.black.opacity(0.6))
+                                    .clipShape(Circle())
+                            }
+                            .padding(20)
+                        }
+                        
+                        Spacer()
+                    }
+                }
+                .transition(.opacity)
+                .zIndex(2)
+                .onTapGesture {
+                    self.showingFullScreenPhoto = false
+                }
+            }
         }
         .navigationBarHidden(true) // Hide the navigation bar since we have our own X button
+        .onAppear {
+            // Load the photo if the workout has one
+            if let completedWorkout = workoutReference.completedWorkout, let photoID = completedWorkout.photoID {
+                self.isLoadingPhoto = true
+                viewModel.getWorkoutPhoto(photoID: photoID) { image in
+                    self.workoutPhoto = image
+                    self.isLoadingPhoto = false
+                }
+            }
+        }
+        .sheet(isPresented: $showingPhotoOptions) {
+            ImagePickerSelectionView(
+                selectedImage: $workoutPhoto,
+                isPresented: $showingPhotoOptions,
+                sourceType: $sourceType
+            )
+        }
+        .sheet(item: $sourceType) { sourceType in
+            CameraOrLibraryPicker(
+                selectedImage: $workoutPhoto,
+                sourceType: sourceType
+            )
+            .onDisappear {
+                // Save the photo if selected
+                if let photo = workoutPhoto, let completedWorkout = workoutReference.completedWorkout {
+                    // Upload to CloudKit
+                    viewModel.saveWorkoutPhoto(workoutID: completedWorkout.id, image: photo) { photoID in
+                        // Photo saved, no action needed as the workout was already updated by the ViewModel
+                    }
+                }
+            }
+        }
     }
 }
 

@@ -98,6 +98,7 @@ struct CompletedWorkout: Codable, Identifiable {
     let completionDate: Date
     let exercises: [Exercise]
     let duration: Int? // Duration in seconds, if recorded
+    let photoID: String? // CloudKit record ID or reference for the workout photo
     
     // Calculate statistics about the workout
     var totalExercises: Int {
@@ -133,15 +134,16 @@ struct CompletedWorkout: Codable, Identifiable {
     
     // For Codable support with UUID
     enum CodingKeys: String, CodingKey {
-        case id, weekName, dayName, completionDate, exercises, duration
+        case id, weekName, dayName, completionDate, exercises, duration, photoID
     }
     
-    init(weekName: String, dayName: String, completionDate: Date, exercises: [Exercise], duration: Int? = nil) {
+    init(weekName: String, dayName: String, completionDate: Date, exercises: [Exercise], duration: Int? = nil, photoID: String? = nil) {
         self.weekName = weekName
         self.dayName = dayName
         self.completionDate = completionDate
         self.exercises = exercises
         self.duration = duration
+        self.photoID = photoID
     }
     
     init(from decoder: Decoder) throws {
@@ -153,6 +155,7 @@ struct CompletedWorkout: Codable, Identifiable {
         self.completionDate = try container.decode(Date.self, forKey: .completionDate)
         self.exercises = try container.decode([Exercise].self, forKey: .exercises)
         self.duration = try container.decodeIfPresent(Int.self, forKey: .duration)
+        self.photoID = try container.decodeIfPresent(String.self, forKey: .photoID)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -163,6 +166,7 @@ struct CompletedWorkout: Codable, Identifiable {
         try container.encode(completionDate, forKey: .completionDate)
         try container.encode(exercises, forKey: .exercises)
         try container.encodeIfPresent(duration, forKey: .duration)
+        try container.encodeIfPresent(photoID, forKey: .photoID)
     }
 }
 
