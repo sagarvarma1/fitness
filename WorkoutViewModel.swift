@@ -186,7 +186,7 @@ class WorkoutViewModel: ObservableObject {
         loadCompletedWorkouts()
         
         if defaults.bool(forKey: "hasCompletedInitialSetup") {
-            // Instead of just loading saved indices, find and set the latest workout day
+            // Find the latest workout day but don't automatically advance
             findAndSetLatestWorkoutDay()
             
             // Load exercise completion status if workout program is loaded
@@ -216,25 +216,14 @@ class WorkoutViewModel: ObservableObject {
                 // Find the week and day index for this workout
                 for (weekIndex, week) in program.weeks.enumerated() {
                     if week.name == latestWorkout.weekName {
-                        self.currentWeekIndex = weekIndex
-                        
                         for (dayIndex, day) in week.days.enumerated() {
                             if day.name == latestWorkout.dayName {
-                                // Found the latest completed workout - now advance to the next day
-                                if dayIndex < week.days.count - 1 {
-                                    // Next day in same week
-                                    self.currentDayIndex = dayIndex + 1
-                                } else if weekIndex < program.weeks.count - 1 {
-                                    // First day of next week
-                                    self.currentWeekIndex = weekIndex + 1
-                                    self.currentDayIndex = 0
-                                } else {
-                                    // End of program, cycle back to first day
-                                    self.currentWeekIndex = 0
-                                    self.currentDayIndex = 0
-                                }
+                                // We found the latest completed workout - but we stay on this day
+                                // until the user explicitly clicks "Unlock Now"
+                                self.currentWeekIndex = weekIndex
+                                self.currentDayIndex = dayIndex
                                 
-                                print("Set day to next workout after latest completed: Week \(currentWeekIndex), Day \(currentDayIndex)")
+                                print("Found latest completed workout: Week \(currentWeekIndex), Day \(currentDayIndex)")
                                 saveState()
                                 return
                             }
@@ -335,6 +324,33 @@ class WorkoutViewModel: ObservableObject {
         return day.exercises.map { $0.title }
     }
     
+    // Record a workout as completed without advancing to the next day
+    func recordWorkoutAsCompleted(duration: Int? = nil) -> CompletedWorkout {
+        guard let currentWeek = self.currentWeek, let currentDay = self.currentDay else {
+            fatalError("Cannot complete workout: no current week or day")
+        }
+        
+        // Create a record of the completed workout
+        let completedWorkout = CompletedWorkout(
+            weekName: currentWeek.name,
+            dayName: currentDay.name,
+            completionDate: Date(),
+            exercises: currentDay.exercises,
+            duration: duration
+        )
+        
+        // Add to completed workouts history
+        completedWorkouts.append(completedWorkout)
+        saveCompletedWorkouts()
+        
+        // No advancement to next day happens here - that will be triggered by the "Unlock Now" button
+        
+        // Force update UI
+        self.objectWillChange.send()
+        
+        return completedWorkout
+    }
+    
     // Advance to the next day and record the completed workout
     func advanceToNextDay(duration: Int? = nil) {
         guard let program = workoutProgram, let currentWeek = self.currentWeek, let currentDay = self.currentDay else { return }
@@ -374,6 +390,19 @@ class WorkoutViewModel: ObservableObject {
     func resetProgress() {
         currentWeekIndex = 0
         currentDayIndex = 0
+    }
+    
+    // Clear all completed workouts history
+    func clearCompletedWorkouts() {
+        // Empty the array
+        self.completedWorkouts = []
+        
+        // Save the empty array to UserDefaults
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: "completedWorkoutsHistory")
+        
+        // Notify observers
+        self.objectWillChange.send()
     }
     
     // Toggle exercise completion status

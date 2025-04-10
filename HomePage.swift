@@ -7,6 +7,20 @@ struct HomePage: View {
     @State private var showingError = false
     @State private var refreshID = UUID() // Add refresh ID to force view refresh
     @State private var showingWorkoutHistory = false // State for workout history sheet
+    @State private var timeUntilNextWorkout: TimeInterval = 24 * 60 * 60 // Default 24 hours
+    @State private var timer: Timer? = nil
+    @State private var selectedMotivationalPhrase: String = "" // Store the selected phrase
+    @State private var motivationalPhrases = [
+        "Great job today!",
+        "You crushed it!",
+        "Well done!",
+        "Awesome workout!",
+        "You're killing it!",
+        "Keep up the good work!",
+        "Workout complete! You rock!",
+        "Another one in the books!",
+        "Your future self thanks you!"
+    ]
     
     var body: some View {
             ZStack {
@@ -60,62 +74,74 @@ struct HomePage: View {
                             .foregroundColor(.white.opacity(0.9))
                             .padding(.bottom, 5)
                         
-                    // Using a custom fullScreenCover instead of NavigationLink
-                        Button("GET STARTED") {
-                            self.navigateToWorkout = true
-                        }
-                        .padding(.vertical, 15)
-                        .padding(.horizontal, 30)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.green)
-                        .foregroundColor(.white)
-                        .font(.headline)
-                        .cornerRadius(15)
-                        .padding(.horizontal, 30)
-                    .fullScreenCover(isPresented: $navigateToWorkout) {
-                        // Custom workout view without navigation elements
-                        WorkoutProgressView(isPresented: $navigateToWorkout)
-                    }
-                        
-                        // Workout Details
-                        ScrollView {
-                            VStack(alignment: .leading, spacing: 15) {
-                                // Focus description
-                                Text("Focus: \(day.focus)")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                    .padding(.bottom, 5)
+                        // Check if today's workout is completed
+                        if isCurrentWorkoutCompleted() {
+                            // Workout completed view
+                            workoutCompletedView()
+                        } else {
+                            // Normal workout view - "GET STARTED" button
+                            Button("GET STARTED") {
+                                // Reset timer state in UserDefaults before starting workout
+                                UserDefaults.standard.removeObject(forKey: "workoutTimerRunning")
+                                UserDefaults.standard.removeObject(forKey: "workoutElapsedSeconds")
+                                UserDefaults.standard.removeObject(forKey: "workoutWasStarted")
+                                UserDefaults.standard.removeObject(forKey: "workoutStartTime")
                                 
-                                // Workout description
-                                Text(day.description)
-                                    .font(.subheadline)
-                                    .foregroundColor(.white.opacity(0.8))
-                                    .padding(.bottom, 10)
-                                
-                                // Exercise list
-                                Text("Today's Exercises:")
-                                    .font(.headline)
-                                    .foregroundColor(.white)
-                                
-                                ForEach(day.exercises) { exercise in
-                                    HStack {
-                                        Circle()
-                                            .fill(Color.red)
-                                            .frame(width: 8, height: 8)
-                                        
-                                        Text(exercise.title)
-                                            .foregroundColor(.white.opacity(0.9))
-                                            .font(.callout)
-                                        
-                                        Spacer()
-                                    }
-                                    .padding(.leading, 5)
-                                }
+                                self.navigateToWorkout = true
                             }
-                            .padding()
-                            .background(Color.black.opacity(0.3))
-                            .cornerRadius(10)
-                            .padding(.horizontal, 20)
+                            .padding(.vertical, 15)
+                            .padding(.horizontal, 30)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .font(.headline)
+                            .cornerRadius(15)
+                            .padding(.horizontal, 30)
+                            .fullScreenCover(isPresented: $navigateToWorkout) {
+                                // Custom workout view without navigation elements
+                                WorkoutProgressView(isPresented: $navigateToWorkout)
+                            }
+                            
+                            // Workout Details
+                            ScrollView {
+                                VStack(alignment: .leading, spacing: 15) {
+                                    // Focus description
+                                    Text("Focus: \(day.focus)")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                        .padding(.bottom, 5)
+                                    
+                                    // Workout description
+                                    Text(day.description)
+                                        .font(.subheadline)
+                                        .foregroundColor(.white.opacity(0.8))
+                                        .padding(.bottom, 10)
+                                    
+                                    // Exercise list
+                                    Text("Today's Exercises:")
+                                        .font(.headline)
+                                        .foregroundColor(.white)
+                                    
+                                    ForEach(day.exercises) { exercise in
+                                        HStack {
+                                            Circle()
+                                                .fill(Color.red)
+                                                .frame(width: 8, height: 8)
+                                            
+                                            Text(exercise.title)
+                                                .foregroundColor(.white.opacity(0.9))
+                                                .font(.callout)
+                                            
+                                            Spacer()
+                                        }
+                                        .padding(.leading, 5)
+                                    }
+                                }
+                                .padding()
+                                .background(Color.black.opacity(0.3))
+                                .cornerRadius(10)
+                                .padding(.horizontal, 20)
+                            }
                         }
                     } else {
                         // Fallback if data can't be loaded
@@ -172,12 +198,26 @@ struct HomePage: View {
                 // Setup notification observers
                 setupNotificationObservers()
                 
+                // Select the motivational phrase if it hasn't been selected yet
+                if selectedMotivationalPhrase.isEmpty {
+                    selectMotivationalPhrase()
+                }
+                
+                // Start timer if workout is completed
+                if isCurrentWorkoutCompleted() {
+                    startNextWorkoutTimer()
+                }
+                
                 // Force refresh
                 self.refreshID = UUID()
             }
             .onDisappear {
                 // Remove notification observer
                 NotificationCenter.default.removeObserver(self)
+                
+                // Invalidate timer
+                timer?.invalidate()
+                timer = nil
             }
             .sheet(isPresented: $showingWorkoutHistory, onDismiss: {
                 // Reload saved state when returning from history view
@@ -238,6 +278,207 @@ struct HomePage: View {
             }
         }
     }
+    
+    // MARK: - Workout Completion UI
+    
+    // Check if the current workout is completed
+    private func isCurrentWorkoutCompleted() -> Bool {
+        guard let currentWeek = viewModel.currentWeek, let currentDay = viewModel.currentDay else {
+            return false
+        }
+        
+        // Check if this workout exists in the completed workouts array
+        return viewModel.completedWorkouts.contains { 
+            $0.weekName == currentWeek.name && $0.dayName == currentDay.name 
+        }
+    }
+    
+    // Get the most recent completed workout
+    private func getMostRecentCompletedWorkout() -> CompletedWorkout? {
+        let sortedWorkouts = viewModel.completedWorkouts.sorted { $0.completionDate > $1.completionDate }
+        return sortedWorkouts.first
+    }
+    
+    // Calculate time until next workout (midnight today)
+    private func calculateTimeUntilNextWorkout() {
+        // Calculate time until midnight today
+        let calendar = Calendar.current
+        let now = Date()
+        
+        // Get midnight of the next day
+        var components = DateComponents()
+        components.day = 1
+        components.hour = 0
+        components.minute = 0
+        components.second = 0
+        
+        // Get date for tomorrow at midnight
+        guard let midnight = calendar.date(byAdding: components, to: calendar.startOfDay(for: now)) else {
+            timeUntilNextWorkout = 0
+            return
+        }
+        
+        // Calculate time remaining until midnight
+        timeUntilNextWorkout = midnight.timeIntervalSince(now)
+    }
+    
+    // Start timer to count down to next workout
+    private func startNextWorkoutTimer() {
+        // Calculate initial time
+        calculateTimeUntilNextWorkout()
+        
+        // Stop existing timer if any
+        timer?.invalidate()
+        
+        // Create new timer that updates every second
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
+            calculateTimeUntilNextWorkout()
+            
+            // If timer reaches zero, invalidate it and refresh view
+            if timeUntilNextWorkout <= 0 {
+                timer?.invalidate()
+                timer = nil
+                refreshID = UUID() // Force refresh
+            }
+        }
+    }
+    
+    // Format the remaining time into a string
+    private func formatTimeRemaining() -> String {
+        let hours = Int(timeUntilNextWorkout) / 3600
+        let minutes = (Int(timeUntilNextWorkout) % 3600) / 60
+        let seconds = Int(timeUntilNextWorkout) % 60
+        
+        return String(format: "%02d:%02d:%02d", hours, minutes, seconds)
+    }
+    
+    // Select a random motivational phrase and store it
+    private func selectMotivationalPhrase() {
+        selectedMotivationalPhrase = motivationalPhrases.randomElement() ?? "Great job today!"
+        
+        // Store the phrase in UserDefaults so it persists across app restarts
+        let defaults = UserDefaults.standard
+        let lastWorkoutDate = getMostRecentCompletedWorkout()?.completionDate ?? Date()
+        
+        // Store both the phrase and the date it was selected
+        defaults.set(selectedMotivationalPhrase, forKey: "selectedMotivationalPhrase")
+        defaults.set(lastWorkoutDate, forKey: "motivationalPhraseDate")
+    }
+    
+    // Get the selected motivational phrase
+    private func getMotivationalPhrase() -> String {
+        // If we already have a selected phrase, use it
+        if !selectedMotivationalPhrase.isEmpty {
+            return selectedMotivationalPhrase
+        }
+        
+        // Otherwise, check if there's a stored phrase for today
+        let defaults = UserDefaults.standard
+        if let storedPhrase = defaults.string(forKey: "selectedMotivationalPhrase"),
+           let storedDate = defaults.object(forKey: "motivationalPhraseDate") as? Date {
+            
+            // Only use the stored phrase if it's from the same day
+            let calendar = Calendar.current
+            if calendar.isDateInToday(storedDate) {
+                selectedMotivationalPhrase = storedPhrase
+                return storedPhrase
+            }
+        }
+        
+        // If no valid stored phrase, select a new one
+        selectMotivationalPhrase()
+        return selectedMotivationalPhrase
+    }
+    
+    // The completed workout view
+    private func workoutCompletedView() -> some View {
+        VStack(spacing: 25) {
+            // Success icon
+            Image(systemName: "checkmark.circle.fill")
+                .font(.system(size: 70))
+                .foregroundColor(.green)
+                .padding(.top, 20)
+            
+            // Congratulatory message - using the stored phrase instead of randomly generating one
+            Text(getMotivationalPhrase())
+                .font(.system(size: 28, weight: .bold))
+                .foregroundColor(.white)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal)
+            
+            // Timer section
+            VStack(spacing: 12) {
+                Text("Next workout unlocks in")
+                    .font(.headline)
+                    .foregroundColor(.white.opacity(0.9))
+                
+                Text(formatTimeRemaining())
+                    .font(.system(size: 36, weight: .bold, design: .monospaced))
+                    .foregroundColor(.white)
+            }
+            .padding(.vertical, 25)
+            .padding(.horizontal, 30)
+            .background(Color.black.opacity(0.3))
+            .cornerRadius(15)
+            .padding(.horizontal, 30)
+            
+            // Unlock button
+            Button(action: {
+                // Unlock next workout immediately
+                unlockNextWorkout()
+            }) {
+                HStack {
+                    Image(systemName: "lock.open.fill")
+                        .font(.headline)
+                    Text("UNLOCK NOW")
+                        .font(.headline)
+                }
+                .padding(.vertical, 15)
+                .frame(maxWidth: .infinity)
+                .background(Color.green)
+                .foregroundColor(.white)
+                .cornerRadius(15)
+                .padding(.horizontal, 30)
+            }
+            
+            Spacer()
+        }
+    }
+    
+    // Unlock the next workout
+    private func unlockNextWorkout() {
+        // Calculate the next workout indices
+        guard let program = viewModel.workoutProgram else { return }
+        
+        let currentWeekIndex = viewModel.currentWeekIndex
+        let currentDayIndex = viewModel.currentDayIndex
+        
+        // First try to advance to the next day in the current week
+        if currentDayIndex < (viewModel.currentWeek?.days.count ?? 0) - 1 {
+            // Next day in same week
+            viewModel.currentDayIndex = currentDayIndex + 1
+        }
+        // If at the end of the week, advance to the next week
+        else if currentWeekIndex < program.weeks.count - 1 {
+            // First day of next week
+            viewModel.currentWeekIndex = currentWeekIndex + 1
+            viewModel.currentDayIndex = 0
+        }
+        // If at the end of the program, reset to the beginning
+        else {
+            viewModel.currentWeekIndex = 0
+            viewModel.currentDayIndex = 0
+        }
+        
+        // Reset the motivational phrase for the next workout
+        selectedMotivationalPhrase = ""
+        UserDefaults.standard.removeObject(forKey: "selectedMotivationalPhrase")
+        
+        // Invalidate timer and refresh the view
+        timer?.invalidate()
+        timer = nil
+        refreshID = UUID()
+    }
 }
 
 // Workout History View
@@ -246,6 +487,7 @@ struct WorkoutHistoryView: View {
     @Environment(\.presentationMode) var presentationMode
     @State private var selectedWorkout: WorkoutReference? = nil
     @State private var showingWorkoutDetail = false
+    @State private var showingResetConfirmation = false
     
     var body: some View {
         NavigationView {
@@ -273,15 +515,15 @@ struct WorkoutHistoryView: View {
                     // All workouts list
                     ScrollView {
                         LazyVStack(spacing: 0) { // Reduced spacing between all items
-                            // Sort weeks by index/number rather than name to ensure correct order
+                            // Sort weeks by number instead of name to ensure correct order
                             let sortedWeekIndices = (0..<viewModel.workoutProgram!.weeks.count).sorted { 
                                 // Extract week number from week name and sort numerically
                                 let week1 = viewModel.workoutProgram!.weeks[$0]
                                 let week2 = viewModel.workoutProgram!.weeks[$1]
                                 
                                 // Extract week numbers (assuming format "Week X - Description")
-                                let week1Num = Int(week1.name.replacingOccurrences(of: "Week ", with: "").components(separatedBy: " ").first ?? "0") ?? 0
-                                let week2Num = Int(week2.name.replacingOccurrences(of: "Week ", with: "").components(separatedBy: " ").first ?? "0") ?? 0
+                                let week1Num = extractWeekNumber(from: week1.name)
+                                let week2Num = extractWeekNumber(from: week2.name)
                                 
                                 return week1Num < week2Num
                             }
@@ -412,6 +654,59 @@ struct WorkoutHistoryView: View {
                             .padding(.bottom, 10) // Reduced bottom padding
                         }
                         .padding(.top, 5) // Reduced top padding
+                        
+                        // Add reset button at the bottom
+                        Button(action: {
+                            // Show confirmation dialog
+                            showingResetConfirmation = true
+                        }) {
+                            Text("RESET")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 15)
+                                .background(Color.red)
+                                .cornerRadius(15)
+                        }
+                        .padding(.horizontal, 30)
+                        .padding(.top, 10)
+                        .padding(.bottom, 20)
+                        .alert(isPresented: $showingResetConfirmation) {
+                            Alert(
+                                title: Text("Reset Everything"),
+                                message: Text("This will reset ALL your workout progress, completed workouts, and timer data. This cannot be undone. Are you sure?"),
+                                primaryButton: .destructive(Text("Reset Everything")) {
+                                    // Hard reset everything
+                                    
+                                    // 1. Reset workout progress indices
+                                    viewModel.resetProgress()
+                                    
+                                    // 2. Clear all timer state
+                                    UserDefaults.standard.removeObject(forKey: "workoutTimerRunning")
+                                    UserDefaults.standard.removeObject(forKey: "workoutElapsedSeconds")
+                                    UserDefaults.standard.removeObject(forKey: "workoutWasStarted")
+                                    UserDefaults.standard.removeObject(forKey: "workoutStartTime")
+                                    
+                                    // 3. Clear completed workouts
+                                    viewModel.clearCompletedWorkouts()
+                                    
+                                    // 4. Reset exercise completion state
+                                    UserDefaults.standard.removeObject(forKey: "exerciseCompletionStatus")
+                                    
+                                    // 5. Reload workout data, which will reset all exercises
+                                    viewModel.loadWorkoutData()
+                                    
+                                    // 6. Reload state to reflect the changes immediately
+                                    viewModel.reloadSavedState()
+                                    
+                                    // Dismiss the view after resetting
+                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                        presentationMode.wrappedValue.dismiss()
+                                    }
+                                },
+                                secondaryButton: .cancel()
+                            )
+                        }
                     }
                 }
             }
@@ -452,6 +747,19 @@ struct WorkoutHistoryView: View {
         UINavigationBar.appearance().scrollEdgeAppearance = appearance
         UINavigationBar.appearance().tintColor = .white
     }
+    
+    // Helper function to extract the week number from a week name
+    private func extractWeekNumber(from weekName: String) -> Int {
+        // Extract number from strings like "Week 1", "Week 10 - Title"
+        let pattern = "Week (\\d+)"
+        let regex = try? NSRegularExpression(pattern: pattern, options: [])
+        if let match = regex?.firstMatch(in: weekName, options: [], range: NSRange(location: 0, length: weekName.count)),
+           let range = Range(match.range(at: 1), in: weekName) {
+            let numberStr = String(weekName[range])
+            return Int(numberStr) ?? 0
+        }
+        return 0
+    }
 }
 
 // Reference to a workout (either completed or from the program)
@@ -475,6 +783,8 @@ struct WorkoutProgressView: View {
     @State private var elapsedSeconds = 0
     @State private var timer: Timer? = nil
     @State private var workoutWasStarted = false // Track if workout was previously started
+    @State private var startTime: Date? = nil
+    @State private var backgroundTaskIdentifier: UIBackgroundTaskIdentifier = .invalid
     
     // Countdown state
     @State private var isCountingDown = false
@@ -615,25 +925,31 @@ struct WorkoutProgressView: View {
                     Button("COMPLETE WORKOUT") {
                         stopTimer()
                         
-                        // Save the workout with duration
-                        viewModel.advanceToNextDay(duration: elapsedSeconds)
+                        // Reset the timer state in UserDefaults
+                        UserDefaults.standard.removeObject(forKey: "workoutTimerRunning")
+                        UserDefaults.standard.removeObject(forKey: "workoutElapsedSeconds")
+                        UserDefaults.standard.removeObject(forKey: "workoutWasStarted")
+                        UserDefaults.standard.removeObject(forKey: "workoutStartTime")
                         
-                        // Use a flag for navigation instead of direct presentation
-                        isPresented = false
+                        // Record the workout as completed
+                        viewModel.recordWorkoutAsCompleted(duration: elapsedSeconds)
                         
-                        // Add slight delay before showing completion view
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                            // Post notification to refresh the home view
-                            NotificationCenter.default.post(
-                                name: NSNotification.Name("RefreshHomeView"),
-                                object: nil
-                            )
-                            
-                            // Use NotificationCenter to present the completion view from the root level
-                            NotificationCenter.default.post(
-                                name: NSNotification.Name("ShowWorkoutCompletedView"),
-                                object: nil
-                            )
+                        // Post notification to refresh data in the background
+                        NotificationCenter.default.post(
+                            name: NSNotification.Name("RefreshHomeView"),
+                            object: nil
+                        )
+                        
+                        // Immediately transition to completed view without dismissing first
+                        // This prevents the home page from showing briefly
+                        NotificationCenter.default.post(
+                            name: NSNotification.Name("ShowWorkoutCompletedView"),
+                            object: nil
+                        )
+                        
+                        // Dismiss after a slight delay to ensure the notification is processed
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                            isPresented = false
                         }
                     }
                     .padding(.vertical, 12) // Slightly reduced padding
@@ -742,12 +1058,27 @@ struct WorkoutProgressView: View {
             }
         }
         .onAppear {
-            // Don't auto-start timer anymore
-            // Timer will only start when user presses Start Workout button
+            // Check if timer was running when the app was closed
+            loadTimerState()
         }
         .onDisappear {
-            // Cleanup timer when view disappears
-            stopTimer()
+            // No longer stop the timer when view disappears
+            // Instead, we'll save the timer state
+            saveTimerState()
+        }
+        // Add scene phase change listeners
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.willResignActiveNotification)) { _ in
+            // App is going to background
+            saveTimerState()
+            startBackgroundTask()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: UIApplication.didBecomeActiveNotification)) { _ in
+            // App is coming back to foreground
+            if backgroundTaskIdentifier != .invalid {
+                UIApplication.shared.endBackgroundTask(backgroundTaskIdentifier)
+                backgroundTaskIdentifier = .invalid
+            }
+            updateTimerFromSavedState()
         }
     }
     
@@ -755,9 +1086,22 @@ struct WorkoutProgressView: View {
     private func startTimer() {
         isTimerRunning = true
         workoutWasStarted = true // Set the flag that workout has been started
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
-            elapsedSeconds += 1
+        
+        // Save the start time if it's not already set
+        if startTime == nil {
+            startTime = Date().addingTimeInterval(TimeInterval(-elapsedSeconds))
         }
+        
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { _ in
+            if let startTime = startTime {
+                elapsedSeconds = Int(Date().timeIntervalSince(startTime))
+            } else {
+                elapsedSeconds += 1
+            }
+        }
+        
+        // Save timer state
+        saveTimerState()
     }
     
     private func stopTimer() {
@@ -765,12 +1109,80 @@ struct WorkoutProgressView: View {
         timer?.invalidate()
         timer = nil
         // Note: We don't reset workoutWasStarted here, so we can show "Continue Workout"
+        // Don't reset start time, we'll keep it for persisting workout duration
+        
+        // Save timer state
+        saveTimerState()
     }
     
     private func resetTimer() {
         stopTimer()
         elapsedSeconds = 0
         workoutWasStarted = false // Reset the flag when timer is reset
+        startTime = nil
+        
+        // Save timer state
+        saveTimerState()
+    }
+    
+    // Background task support
+    private func startBackgroundTask() {
+        if isTimerRunning {
+            // Start a background task if timer is running
+            backgroundTaskIdentifier = UIApplication.shared.beginBackgroundTask {
+                // This is the expiration handler if we take too long
+                if self.backgroundTaskIdentifier != .invalid {
+                    UIApplication.shared.endBackgroundTask(self.backgroundTaskIdentifier)
+                    self.backgroundTaskIdentifier = .invalid
+                }
+            }
+        }
+    }
+    
+    // Persistence functions
+    private func saveTimerState() {
+        let defaults = UserDefaults.standard
+        defaults.set(isTimerRunning, forKey: "workoutTimerRunning")
+        defaults.set(elapsedSeconds, forKey: "workoutElapsedSeconds")
+        defaults.set(workoutWasStarted, forKey: "workoutWasStarted")
+        
+        if let startTime = startTime {
+            defaults.set(startTime, forKey: "workoutStartTime")
+        } else {
+            defaults.removeObject(forKey: "workoutStartTime")
+        }
+    }
+    
+    private func loadTimerState() {
+        let defaults = UserDefaults.standard
+        workoutWasStarted = defaults.bool(forKey: "workoutWasStarted")
+        
+        if workoutWasStarted {
+            if let savedStartTime = defaults.object(forKey: "workoutStartTime") as? Date {
+                startTime = savedStartTime
+                
+                // Calculate elapsed seconds based on saved start time
+                elapsedSeconds = Int(Date().timeIntervalSince(startTime!))
+                
+                // If timer was running when app was closed, restart it
+                if defaults.bool(forKey: "workoutTimerRunning") {
+                    startTimer()
+                } else {
+                    // Just update the elapsed seconds based on the saved value
+                    elapsedSeconds = defaults.integer(forKey: "workoutElapsedSeconds")
+                }
+            } else {
+                // Fallback to just the saved elapsed seconds if no start time
+                elapsedSeconds = defaults.integer(forKey: "workoutElapsedSeconds")
+            }
+        }
+    }
+    
+    private func updateTimerFromSavedState() {
+        if isTimerRunning, let startTime = startTime {
+            // Update elapsed time from the persistent start time
+            elapsedSeconds = Int(Date().timeIntervalSince(startTime))
+        }
     }
     
     // New countdown function
@@ -1151,6 +1563,12 @@ struct WorkoutDetailView: View {
                         // Add a start workout button ONLY for the current workout (not for completed)
                         if isCurrent && !isCompleted {
                             Button("START THIS WORKOUT") {
+                                // Reset timer state in UserDefaults before starting workout
+                                UserDefaults.standard.removeObject(forKey: "workoutTimerRunning")
+                                UserDefaults.standard.removeObject(forKey: "workoutElapsedSeconds")
+                                UserDefaults.standard.removeObject(forKey: "workoutWasStarted")
+                                UserDefaults.standard.removeObject(forKey: "workoutStartTime")
+                                
                                 // Dismiss this view and post notification to start the workout
                                 self.presentationMode.wrappedValue.dismiss()
                                 

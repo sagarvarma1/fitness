@@ -1,5 +1,7 @@
 import SwiftUI
 import UIKit
+import AVFoundation
+import Photos
 
 // Helper struct for UIKit image picker integration 
 // that can be used throughout the app
@@ -228,12 +230,13 @@ struct NativeCameraPicker: UIViewControllerRepresentable {
     }
 }
 
-// Camera view with camera roll button
+// Camera with gallery view with permission handling
 struct CameraWithGalleryView: View {
     @Binding var selectedImage: UIImage?
     @Environment(\.presentationMode) var presentationMode
-    @State private var showingCamera = true
+    @State private var showingCamera = false
     @State private var showingImagePicker = false
+    @State private var showingPermissionAlert = false
     
     var body: some View {
         ZStack {
@@ -270,6 +273,126 @@ struct CameraWithGalleryView: View {
                 PhotoLibraryPicker(selectedImage: $selectedImage, presentationMode: presentationMode)
                     .transition(.move(edge: .trailing))
             }
+            
+            // Initial view to check permissions
+            if !showingCamera && !showingImagePicker {
+                VStack(spacing: 20) {
+                    Text("Choose Photo Source")
+                        .font(.headline)
+                        .foregroundColor(.white)
+                    
+                    Button(action: {
+                        checkCameraPermission()
+                    }) {
+                        HStack {
+                            Image(systemName: "camera.fill")
+                                .foregroundColor(.white)
+                            Text("Camera")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red)
+                        .cornerRadius(10)
+                    }
+                    
+                    Button(action: {
+                        checkPhotoLibraryPermission()
+                    }) {
+                        HStack {
+                            Image(systemName: "photo.fill")
+                                .foregroundColor(.white)
+                            Text("Photo Library")
+                                .foregroundColor(.white)
+                        }
+                        .padding()
+                        .frame(maxWidth: .infinity)
+                        .background(Color.red)
+                        .cornerRadius(10)
+                    }
+                    
+                    Button(action: {
+                        presentationMode.wrappedValue.dismiss()
+                    }) {
+                        Text("Cancel")
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(maxWidth: .infinity)
+                            .background(Color.gray)
+                            .cornerRadius(10)
+                    }
+                }
+                .padding(.horizontal, 40)
+                .background(Color(UIColor.darkGray))
+                .cornerRadius(15)
+                .padding(.horizontal, 30)
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.6).edgesIgnoringSafeArea(.all))
+            }
+        }
+        .alert(isPresented: $showingPermissionAlert) {
+            Alert(
+                title: Text("Permission Required"),
+                message: Text("This app needs camera access to take photos. Please grant permission in Settings."),
+                primaryButton: .default(Text("Settings"), action: {
+                    // Open app settings
+                    if let url = URL(string: UIApplication.openSettingsURLString) {
+                        UIApplication.shared.open(url)
+                    }
+                }),
+                secondaryButton: .cancel()
+            )
+        }
+    }
+    
+    // Check camera permission before showing camera
+    private func checkCameraPermission() {
+        switch AVCaptureDevice.authorizationStatus(for: .video) {
+        case .authorized:
+            // Permission already granted
+            showingCamera = true
+        case .notDetermined:
+            // Request permission
+            AVCaptureDevice.requestAccess(for: .video) { granted in
+                DispatchQueue.main.async {
+                    if granted {
+                        showingCamera = true
+                    } else {
+                        showingPermissionAlert = true
+                    }
+                }
+            }
+        case .denied, .restricted:
+            // Permission denied or restricted
+            showingPermissionAlert = true
+        @unknown default:
+            showingPermissionAlert = true
+        }
+    }
+    
+    // Check photo library permission before showing library
+    private func checkPhotoLibraryPermission() {
+        let status = PHPhotoLibrary.authorizationStatus()
+        switch status {
+        case .authorized, .limited:
+            // Permission already granted
+            showingImagePicker = true
+        case .notDetermined:
+            // Request permission
+            PHPhotoLibrary.requestAuthorization { status in
+                DispatchQueue.main.async {
+                    if status == .authorized || status == .limited {
+                        showingImagePicker = true
+                    } else {
+                        showingPermissionAlert = true
+                    }
+                }
+            }
+        case .denied, .restricted:
+            // Permission denied or restricted
+            showingPermissionAlert = true
+        @unknown default:
+            showingPermissionAlert = true
         }
     }
 }

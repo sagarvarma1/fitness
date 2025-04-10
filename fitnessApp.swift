@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 @main
 struct fitnessApp: App {
@@ -14,6 +15,9 @@ struct fitnessApp: App {
     @State private var showWorkoutCompletedView: Bool = false
     @StateObject private var notificationCenter = NotificationHandler()
     @StateObject private var workoutViewModel = WorkoutViewModel()
+    
+    // Track app state
+    @Environment(\.scenePhase) private var scenePhase
     
     var body: some Scene {
         WindowGroup {
@@ -36,13 +40,13 @@ struct fitnessApp: App {
                 // Conditionally show workout completed view as an overlay
                 if showWorkoutCompletedView {
                     WorkoutCompletedView(viewModel: workoutViewModel)
-                        .transition(.move(edge: .bottom))
+                        .transition(.opacity.combined(with: .move(edge: .bottom)))
                         .zIndex(100) // Keep on top
                 }
             }
             .onChange(of: notificationCenter.showWorkoutCompletedView) { show in
                 if show {
-                    withAnimation(.easeIn(duration: 0.3)) {
+                    withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                         showWorkoutCompletedView = true
                     }
                     notificationCenter.showWorkoutCompletedView = false
@@ -59,7 +63,7 @@ struct fitnessApp: App {
             // Direct notification handlers for extra reliability
             .onReceive(NotificationCenter.default.publisher(for: NSNotification.Name("ShowWorkoutCompletedView"))) { _ in
                 print("App received ShowWorkoutCompletedView notification")
-                withAnimation(.easeIn(duration: 0.3)) {
+                withAnimation(.spring(response: 0.4, dampingFraction: 0.7)) {
                     showWorkoutCompletedView = true
                 }
             }
@@ -68,6 +72,22 @@ struct fitnessApp: App {
                 withAnimation(.easeOut(duration: 0.3)) {
                     showWorkoutCompletedView = false
                 }
+            }
+        }
+        .onChange(of: scenePhase) { newPhase in
+            switch newPhase {
+            case .background:
+                print("App moved to background")
+                // App is in the background
+                // The WorkoutProgressView will handle its own background state
+            case .active:
+                print("App is active")
+                // App is in the foreground and active
+            case .inactive:
+                print("App is inactive")
+                // App is inactive (transitioning between states)
+            @unknown default:
+                print("Unknown scene phase")
             }
         }
     }

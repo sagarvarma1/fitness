@@ -14,14 +14,37 @@ struct WorkoutProgram: Codable {
         let container = try decoder.singleValueContainer()
         let weeksDict = try container.decode([String: [String: DayData]].self)
         
+        // Extract week number helper function (defined outside to avoid capturing self)
+        func extractWeekNumber(from weekName: String) -> Int {
+            // Extract number from strings like "Week 1", "Week 10 - Title"
+            let pattern = "Week (\\d+)"
+            let regex = try? NSRegularExpression(pattern: pattern, options: [])
+            if let match = regex?.firstMatch(in: weekName, options: [], range: NSRange(location: 0, length: weekName.count)),
+               let range = Range(match.range(at: 1), in: weekName) {
+                let numberStr = String(weekName[range])
+                return Int(numberStr) ?? 0
+            }
+            return 0
+        }
+        
         // Convert dictionary to our model structure
-        self.weeks = weeksDict.map { weekName, daysDict in
+        var unsortedWeeks = weeksDict.map { weekName, daysDict in
             let days = daysDict.map { dayName, dayData in
                 Day(name: dayName, focus: dayData.Focus, description: dayData.Description, exercises: dayData.Exercises)
             }.sorted { $0.name < $1.name } // Sort days
             
             return Week(name: weekName, days: days)
-        }.sorted { $0.name < $1.name } // Sort weeks
+        }
+        
+        // Sort weeks by week number
+        unsortedWeeks.sort { 
+            let week1Num = extractWeekNumber(from: $0.name)
+            let week2Num = extractWeekNumber(from: $1.name)
+            return week1Num < week2Num
+        }
+        
+        // Initialize the weeks array
+        self.weeks = unsortedWeeks
     }
 }
 

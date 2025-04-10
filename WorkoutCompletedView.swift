@@ -107,8 +107,6 @@ struct WorkoutCompletedView: View {
                 // Add Later button
                 Button("ADD LATER") {
                     // Navigate to main view without saving photo
-                    // Ensure we're going to day two
-                    UserDefaults.standard.set(nextDay, forKey: "currentDayIndex")
                     dismissAndReturnToHome()
                 }
                 .padding(.vertical, 12)
@@ -129,8 +127,6 @@ struct WorkoutCompletedView: View {
                         uploadPhoto(image: image)
                     } else {
                         // If no photo was taken, just navigate to main view
-                        // Ensure we're going to day two
-                        UserDefaults.standard.set(nextDay, forKey: "currentDayIndex")
                         dismissAndReturnToHome()
                     }
                 }
@@ -173,16 +169,17 @@ struct WorkoutCompletedView: View {
     private func dismissAndReturnToHome() {
         print("Dismissing WorkoutCompletedView")
         
-        // Direct notification approach - first refresh HomeView, then hide this view
-        NotificationCenter.default.post(name: NSNotification.Name("RefreshHomeView"), object: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            NotificationCenter.default.post(name: NSNotification.Name("HideWorkoutCompletedView"), object: nil)
-        }
-        
         // Add haptic feedback when dismissing
         let generator = UIImpactFeedbackGenerator(style: .medium)
         generator.impactOccurred()
+        
+        // First hide this view with animation
+        NotificationCenter.default.post(name: NSNotification.Name("HideWorkoutCompletedView"), object: nil)
+        
+        // Then refresh the home view after a short delay to ensure smooth transition
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            NotificationCenter.default.post(name: NSNotification.Name("RefreshHomeView"), object: nil)
+        }
     }
     
     // Function to save the selected photo to CloudKit
