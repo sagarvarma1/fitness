@@ -2,10 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>UIDeviceFamily</key>
+	<string>1</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
 	<key>CFBundleDisplayName</key>
-	<string>90 Day Shred</string>
+	<string>10 Week Shred</string>
 	<key>CFBundleName</key>
-	<string>90 Day Shred</string>
+	<string>10 Week Shred</string>
 	<key>CFBundleExecutable</key>
 	<string>fitness</string>
 	<key>CFBundleIdentifier</key>

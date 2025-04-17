@@ -60,7 +60,7 @@ class WorkoutViewModel: ObservableObject {
     }
     
     // Save current progress
-    private func saveState() {
+    func saveState() {
         let defaults = UserDefaults.standard
         defaults.set(self.currentWeekIndex, forKey: "currentWeekIndex")
         defaults.set(self.currentDayIndex, forKey: "currentDayIndex")

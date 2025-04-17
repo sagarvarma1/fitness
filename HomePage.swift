@@ -74,11 +74,13 @@ struct HomePage: View {
                             .foregroundColor(.white.opacity(0.9))
                             .padding(.bottom, 5)
                         
-                        // Check if today's workout is completed
-                        if isCurrentWorkoutCompleted() {
-                            // Workout completed view
+                        // Check if today's workout is completed AND if it was completed today
+                        if let completedWorkout = findCurrentCompletedWorkout(), 
+                           Calendar.current.isDateInToday(completedWorkout.completionDate) {
+                            // Workout completed today - show the countdown timer view
                             workoutCompletedView()
                         } else {
+                            // Workout not completed, or completed on a previous day (show next workout)
                             // Normal workout view - "GET STARTED" button
                             Button("GET STARTED") {
                                 // Reset timer state in UserDefaults before starting workout
@@ -189,26 +191,43 @@ struct HomePage: View {
                     viewModel.loadWorkoutData()
                 }
                 
-                // Always reload completed workouts and find latest day
+                // Always reload completed workouts
                 viewModel.loadCompletedWorkouts()
                 
                 // Reload state to get the current day
                 viewModel.reloadSavedState()
                 
+                // --- Automatic Unlock Logic --- 
+                // Check if the current workout (based on saved state) is completed
+                if let completedWorkout = findCurrentCompletedWorkout() {
+                    // Check if the completion date was *before* today
+                    if !Calendar.current.isDateInToday(completedWorkout.completionDate) {
+                        print("Workout completed on a previous day. Unlocking next workout automatically.")
+                        // Unlock the next workout (advances indices, resets timer)
+                        unlockNextWorkout() 
+                        // Note: unlockNextWorkout now handles refreshID and timer invalidation
+                    }
+                }
+                // --- End Automatic Unlock Logic ---
+                
                 // Setup notification observers
                 setupNotificationObservers()
                 
-                // Select the motivational phrase if it hasn't been selected yet
-                if selectedMotivationalPhrase.isEmpty {
-                    selectMotivationalPhrase()
-                }
-                
-                // Start timer if workout is completed
-                if isCurrentWorkoutCompleted() {
+                // Select motivational phrase if needed (only for the completed view)
+                if let completedWorkout = findCurrentCompletedWorkout(), 
+                   Calendar.current.isDateInToday(completedWorkout.completionDate) {
+                    if selectedMotivationalPhrase.isEmpty {
+                        selectMotivationalPhrase()
+                    }
+                    // Start the countdown timer only if workout completed today
                     startNextWorkoutTimer()
+                } else {
+                    // Ensure timer is stopped if workout isn't completed today
+                    timer?.invalidate()
+                    timer = nil
                 }
                 
-                // Force refresh
+                // Force refresh *after* potential unlock
                 self.refreshID = UUID()
             }
             .onDisappear {
@@ -280,6 +299,16 @@ struct HomePage: View {
     }
     
     // MARK: - Workout Completion UI
+    
+    // Helper to find the CompletedWorkout object for the *current* week/day
+    private func findCurrentCompletedWorkout() -> CompletedWorkout? {
+        guard let currentWeek = viewModel.currentWeek, let currentDay = viewModel.currentDay else {
+            return nil
+        }
+        return viewModel.completedWorkouts.first { 
+            $0.weekName == currentWeek.name && $0.dayName == currentDay.name 
+        }
+    }
     
     // Check if the current workout is completed
     private func isCurrentWorkoutCompleted() -> Bool {
@@ -469,6 +498,9 @@ struct HomePage: View {
             viewModel.currentWeekIndex = 0
             viewModel.currentDayIndex = 0
         }
+        
+        // Save the new state immediately
+        viewModel.saveState()
         
         // Reset the motivational phrase for the next workout
         selectedMotivationalPhrase = ""
